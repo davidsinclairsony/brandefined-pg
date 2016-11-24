@@ -1,7 +1,12 @@
 # brandefined exotic
-wordpress website based on divi theme
+wordpress website using docker for development
 
-## docker for local development
+## start docker
 ```
 docker-compose up -d
+```
+
+## view docker
+```
+http://localhost:8080
 ```
