@@ -1,0 +1,32 @@
+{
+  "private": true,
+  "name": "brandefined-divi",
+  "description": "",
+  "author": "David Sinclair <david@sikhote.com> (http://sikhote.com)",
+  "version": "1.0.0",
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "license": "",
+  "scripts": {
+    "start": "gulp",
+    "updater": "ncu -a && npm i"
+  },
+  "dependencies": {
+    "autoprefixer": "^6.5.3",
+    "babel": "^6.5.2",
+    "babel-core": "^6.18.2",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "browser-sync": "^2.18.2",
+    "gulp": "^3.9.1",
+    "gulp-postcss": "^6.2.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-util": "^3.0.7",
+    "node-sass": "^3.13.0",
+    "npm-check-updates": "^2.8.0",
+    "run-sequence": "^1.2.2"
+  }
+}

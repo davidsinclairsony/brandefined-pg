@@ -1,4 +1,7 @@
 .DS_Store
+node_modules
+npm-debug.*
+
 src/index.php
 src/license.txt
 src/readme.html
