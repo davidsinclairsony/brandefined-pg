@@ -16,3 +16,9 @@ services:
       - my-wpdb:mysql
     environment:
       WORDPRESS_DB_PASSWORD: ChangeMeIfYouWant
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - "8888:80"
+    links:
+      - my-wpdb:db

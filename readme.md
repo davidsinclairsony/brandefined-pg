@@ -1,12 +1,18 @@
 # brandefined exotic
 wordpress website using docker for development
 
-## start docker
+## docker start & stop
 ```
 docker-compose up -d
+docker-compose stop
 ```
 
-## view docker
+## view wordpress 
+```
+http://localhost:8080
+```
+
+## view phpmyadmin 
 ```
 http://localhost:8080
 ```
