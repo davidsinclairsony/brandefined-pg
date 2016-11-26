@@ -1,0 +1,20 @@
+/*
+ Theme Name:     Brandefined Divi Child Theme
+ Theme URI:      http://brandefined.com
+ Description:    A child theme for Div by Brandefined
+ Author:         Brandefined [Erik Schade] [Jino Conklin] [Kenny Scott]
+ Author URI:     http://www.brandefined.com
+ Template:       Divi
+ Version:        1.2.0
+*/
+
+$color-primary: #52338f;
+$color-secondary: #56c3be;
+$color-tertiary: #f9e6a0;
+
+@import "scss/fonts";
+@import "scss/other";
+@import "scss/base";
+@import "scss/footer";
+@import "scss/home";
+@import "scss/tanning";

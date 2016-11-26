@@ -15,8 +15,8 @@ src/wp-content/cache
 src/wp-content/index.php
 src/wp-content/themes/*
 src/wp-content/themes/*/
-src/wp-content/themes/!/Divi/
-src/wp-content/themes/!/brandefined-divi/
+!src/wp-content/themes/Divi/
+!src/wp-content/themes/brandefined-divi/
 src/wp-includes
 src/wp-links-opml.php
 src/wp-load.php

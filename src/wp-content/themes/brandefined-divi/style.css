@@ -1,0 +1,491 @@
+/*
+ Theme Name:     Brandefined Divi Child Theme
+ Theme URI:      http://brandefined.com
+ Description:    A child theme for Div by Brandefined
+ Author:         Brandefined [Erik Schade] [Jino Conklin] [Kenny Scott]
+ Author URI:     http://www.brandefined.com
+ Template:       Divi
+ Version:        1.2.0
+*/
+@import 'https://fonts.googleapis.com/css?family=Advent+Pro:400,600';
+@import 'https://fonts.googleapis.com/css?family=Montserrat:700';
+@font-face {
+  font-family: 'Montserrat Light';
+  src: url("fonts/montserrat-light-webfont.woff2") format("woff2"), url("fonts/montserrat-light-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* page banner for inner pages */
+.page-banner {
+  overflow: hidden;
+  padding: 60px 0;
+  border-top: 10px solid #3c2669;
+  border-bottom: 10px solid #3c2669;
+}
+
+.page-banner .et_pb_fullwidth_header {
+  padding: 0 !important;
+}
+
+.page-banner .et_pb_fullwidth_header_container {
+  z-index: 4;
+}
+
+.page-banner .et_pb_fullwidth_header_container .et_pb_fullwidth_header_subhead {
+  color: white;
+  font-size: 28px;
+}
+
+.page-banner .et_pb_fullwidth_header_container .et_pb_fullwidth_header_subhead a {
+  color: #f9e6a0;
+}
+
+.page-banner .et_pb_fullwidth_header_container .et_pb_fullwidth_header_subhead a:hover {
+  color: #f6d970;
+}
+
+.page-banner .background {
+  filter: grayscale(100%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+/* random from before is before */
+.advent {
+  font-family: "Advent Pro";
+  font-weight: 400;
+}
+
+.advent-semi, .advent-semi > p * {
+  font-family: "Advent Pro";
+  font-weight: 600 !important;
+}
+
+.hours {
+  display: inline-block;
+  font-family: "Montserrat Light";
+  padding-top: 10px;
+}
+
+.hours br {
+  display: none;
+}
+
+.mobile-only {
+  display: none !important;
+}
+
+#top-menu li.current-menu-item > a {
+  color: #56c3be;
+}
+
+.drop-cap p:first-child:first-letter {
+  float: left;
+  color: #fff;
+  background: #56c3be;
+  font-size: 79px;
+  line-height: 1;
+  padding: 0px 20px;
+  margin-right: 20px;
+  font-family: 'Advent Pro';
+  font-weight: 600;
+  clear: both;
+  margin-bottom: 40px;
+  margin-top: 10px;
+}
+
+body.admin-bar.et_non_fixed_nav.et_transparent_nav #main-header,
+body.admin-bar.et_non_fixed_nav.et_transparent_nav #top-header,
+body.admin-bar.et_fixed_nav #main-header,
+body.admin-bar.et_fixed_nav #top-header {
+  top: 0;
+}
+
+.et_non_fixed_nav.et_transparent_nav #main-header,
+.et_non_fixed_nav.et_transparent_nav #top-header {
+  position: relative;
+}
+
+/**********[ Header & Top Nav ]**********/
+@media only screen and (min-width: 981px) {
+  .et_header_style_left #et-top-navigation nav > ul > li > a,
+  .et_header_style_split #et-top-navigation nav > ul > li > a {
+    padding-bottom: 0px !important;
+    margin-bottom: 88px;
+  }
+}
+
+#inline-buttons .et_pb_button_module_wrapper {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+#top-menu {
+  position: relative;
+}
+
+#top-menu li.button-book {
+  position: absolute;
+  right: 0;
+  top: 45px;
+  z-index: 200;
+}
+
+#top-menu li.button-book.tanning {
+  right: 175px;
+}
+
+.et_header_style_left #et-top-navigation nav > ul > li.button-book {
+  padding-right: 0 !important;
+}
+
+.et_header_style_left #et-top-navigation nav > ul > li.button-book.tanning > a,
+.et_header_style_left #et-top-navigation nav > ul > li.button-book.other > a {
+  padding: 10px 15px !important;
+  border: 2px solid #000;
+}
+
+.et_header_style_left #et-top-navigation nav > ul > li.button-book.other > a {
+  color: #fff;
+  background: #52338f;
+  border-color: #52338f;
+}
+
+@media screen and (min-width: 981px) {
+  .et_header_style_left #et-top-navigation nav > ul > li.button-book > a {
+    font-weight: 800;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 980px) {
+  .margin-bottom {
+    margin-bottom: 25px !important;
+  }
+  .mobile-only {
+    display: block !important;
+  }
+  .h1, .h2 {
+    font-size: 41px;
+  }
+  .container.et_menu_container {
+    width: calc( 100% - 60px);
+  }
+  .et_mobile_menu {
+    margin-left: -30px;
+    padding: 5%;
+    width: calc( 100% + 60px);
+  }
+  u {
+    line-height: 1.5;
+  }
+  /* Todo: use jquery to replace using animation */
+  .mobile_nav.opened .mobile_menu_bar:before {
+    content: "\4d";
+  }
+}
+
+#main-header {
+  padding: 10px 0px !important;
+}
+
+/***[ Brandefined Link Animation ]***/
+.brandefined-logo-container {
+  width: auto;
+  display: inline-block;
+  overflow: hidden;
+  margin-left: 5px;
+}
+
+.overflow-container {
+  overflow: hidden;
+  display: inline-block;
+  padding-left: 10px;
+  margin-left: -10px;
+}
+
+.brandefined-logo img {
+  transition: .75s;
+  z-index: 100;
+}
+
+.brandefined-logo img {
+  margin-bottom: 4px;
+  margin-right: 5px;
+  opacity: .4;
+}
+
+.brandefined-logo span {
+  font-weight: bold;
+  opacity: 0;
+}
+
+.brandefined-logo-container {
+  cursor: pointer;
+}
+
+.brandefined-logo-container:hover .brandefined-logo img {
+  opacity: 1;
+}
+
+.brandefined-logo-container .brandefined-logo span {
+  margin-left: -150px;
+  opacity: 0;
+  transition: .5s;
+}
+
+/*---> Relies on some JS to add/remove class <---*/
+.brandefined-logo-container .brandefined-logo span.show {
+  margin-left: 0;
+  opacity: 1;
+}
+
+/** collapse submenus on mobile */
+#main-header .et_mobile_menu .menu-item-has-children > a {
+  background-color: transparent;
+  position: relative;
+}
+
+#main-header .et_mobile_menu .menu-item-has-children > a:after {
+  font-family: 'ETmodules';
+  text-align: center;
+  speak: none;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  position: absolute;
+}
+
+#main-header .et_mobile_menu .menu-item-has-children > a:after {
+  font-size: 16px;
+  content: '\4c';
+  top: 13px;
+  right: 10px;
+}
+
+#main-header .et_mobile_menu .menu-item-has-children.visible > a:after {
+  content: '\4d';
+}
+
+#main-header .et_mobile_menu ul.sub-menu {
+  display: none !important;
+  visibility: hidden !important;
+  transition: all 1.5s ease-in-out;
+}
+
+#main-header .et_mobile_menu .visible > ul.sub-menu {
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* i'm too flexy for my grid */
+.bd-flex-grid {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row wrap;
+      flex-flow: row wrap;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
+}
+
+.bd-flex-col-1-2 {
+  -ms-flex: 1;
+      flex: 1;
+  -ms-flex-preferred-size: 49%;
+      flex-basis: 49%;
+  max-width: 49%;
+}
+
+.bd-flex-col-1-3 {
+  -ms-flex: 1;
+      flex: 1;
+  -ms-flex-preferred-size: 31%;
+      flex-basis: 31%;
+  max-width: 31%;
+}
+
+.bd-flex-col-2-3 {
+  -ms-flex: 1;
+      flex: 1;
+  -ms-flex-preferred-size: 65%;
+      flex-basis: 65%;
+  max-width: 65%;
+}
+
+.bd-flex-col-1-4 {
+  -ms-flex: 1;
+      flex: 1;
+  -ms-flex-preferred-size: 24%;
+      flex-basis: 24%;
+  max-width: 24%;
+}
+
+.bd-flex-col-1-5 {
+  -ms-flex: 1;
+      flex: 1;
+  -ms-flex-preferred-size: 19%;
+      flex-basis: 19%;
+  max-width: 19%;
+}
+
+.bd-flex-col-1-6 {
+  -ms-flex: 1;
+      flex: 1;
+  -ms-flex-preferred-size: 15%;
+      flex-basis: 15%;
+  max-width: 15%;
+}
+
+@media screen and (min-width: 981px) {
+  #et-top-navigation {
+    position: relative;
+    top: -20px;
+  }
+}
+
+@media only screen and (max-width: 981px) {
+  .bd-flex-grid [class*="bd-flex-col"] {
+    -ms-flex-preferred-size: 33%;
+        flex-basis: 33%;
+    max-width: 33%;
+  }
+  #homepage-slider .et_pb_slide_0 > .et_pb_container,
+  #homepage-slider .et_pb_slide_0 {
+    min-height: 0 !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .bd-flex-grid [class*="bd-flex-col"] {
+    -ms-flex-preferred-size: 50%;
+        flex-basis: 50%;
+    max-width: 50%;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .bd-flex-grid {
+    margin-left: 0;
+  }
+  .bd-flex-grid [class*="bd-flex-col"] {
+    -ms-flex-preferred-size: auto;
+        flex-basis: auto;
+  }
+}
+
+.h1, h1 {
+  font-weight: bold;
+  line-height: 1em;
+  color: #52338f;
+  font-size: 52px;
+  font-family: Advent Pro;
+}
+
+.et_pb_bg_layout_dark h1 {
+  color: #56c3be !important;
+}
+
+.et_pb_bg_layout_light h1 {
+  color: #52338f !important;
+}
+
+.h2 {
+  color: #56c3be;
+  font-size: 52px;
+  font-weight: bold;
+}
+
+h6 {
+  color: white;
+  text-transform: uppercase;
+  font-size: 24px;
+  font-family: "Montserrat";
+  font-weight: bold;
+  padding-bottom: 20px;
+  margin-bottom: 36px;
+  position: relative;
+}
+
+h6:after {
+  content: " ";
+  width: 12%;
+  left: 0;
+  position: absolute;
+  background: #fff;
+  height: 2px;
+  bottom: -15px;
+}
+
+u {
+  text-decoration: none;
+  padding-bottom: 3px;
+  border-bottom: 2px solid #333;
+}
+
+strong, strong > * {
+  font-family: 'Montserrat';
+  font-weight: 700 !important;
+}
+
+#footer-divider hr {
+  position: relative;
+  border: 0;
+  background: url("https://exotic-tans-and-spa-erikbrandefined.c9users.io/wp-content/uploads/2016/09/sun.png") no-repeat center;
+  height: 45px;
+}
+
+#footer-divider hr:before {
+  left: -50%;
+  transform: translatex(-45px);
+}
+
+#footer-divider hr:after {
+  right: -50%;
+  transform: translatex(45px);
+}
+
+#footer-divider hr:before,
+#footer-divider hr:after {
+  width: 100%;
+  position: absolute;
+  content: ' ';
+  height: 2px;
+  background: #000;
+  bottom: 5px;
+}
+
+body.home {
+  /**********[ Home Page ]**********/
+}
+
+body.home .et_pb_slider .et_pb_slide_0 {
+  padding-top: 0 !important;
+}
+
+body.home.et_non_fixed_nav.et_transparent_nav #main-header,
+body.home.et_non_fixed_nav.et_transparent_nav #top-header {
+  position: relative;
+}
+
+@media only screen and (min-width: 981px) {
+  body.home .et_pb_slide_0 {
+    padding: 0 !important;
+  }
+}
+
+@media (max-width: 980px) {
+  body.home #homepage-slider .et_pb_slide_0 .et_pb_container {
+    transform: translateY(10px);
+  }
+  body.home #homepage-slider .et_pb_container {
+    width: 100%;
+  }
+  body.home #homepage-slider .et_pb_slides > .et_pb_slide_0 {
+    background-image: none !important;
+  }
+}

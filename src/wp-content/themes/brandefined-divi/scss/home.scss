@@ -1,0 +1,29 @@
+body.home {
+  /**********[ Home Page ]**********/
+  .et_pb_slider .et_pb_slide_0 {
+    padding-top: 0 !important;
+  }
+  &.et_non_fixed_nav.et_transparent_nav #main-header,
+  &.et_non_fixed_nav.et_transparent_nav #top-header {
+    position: relative;
+  }
+
+  @media only screen and (min-width: 981px) {
+    .et_pb_slide_0 {
+      padding: 0 !important;
+    }
+  }
+
+  @media (max-width: 980px) {
+    #homepage-slider .et_pb_slide_0 .et_pb_container {
+      transform: translateY(10px);
+
+    }
+    #homepage-slider .et_pb_container {
+      width: 100%;
+    }
+    #homepage-slider .et_pb_slides > .et_pb_slide_0 {
+      background-image: none !important;
+    }
+  }
+}
