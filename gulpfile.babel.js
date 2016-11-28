@@ -6,7 +6,7 @@ import browserSync from 'browser-sync';
 import autoprefixer from 'autoprefixer';
 import postcss from 'gulp-postcss';
 
-const themePath = './src/wp-content/themes/brandefined-divi/';
+const themePath = './wp-content/themes/brandefined-divi/';
 const sassPaths = {
   blob: `${themePath}**/*.scss`,
   source: `${themePath}style.scss`
