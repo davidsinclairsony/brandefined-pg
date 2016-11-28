@@ -1,4 +1,38 @@
 body.home {
+  .h1 {
+    font-family: 'Montserrat';
+    font-size: 52px;
+
+    @media (max-width: 980px) {
+      font-size: 40px;
+    }
+  }
+
+  .h2 {
+    font-size: 52px;
+    font-weight: bold;
+    text-transform: none;
+    color: $color-secondary !important;
+    letter-spacing: normal;
+
+    &:after {
+      display: none;
+    }
+
+    @media (max-width: 980px) {
+      font-size: 40px;
+    }
+  }
+
+  .h3, h3 {
+    color: #56c3be;
+    font-size: 26px;
+
+    &:after {
+      display: block;
+    }
+  }
+
   /**********[ Home Page ]**********/
   .et_pb_slider .et_pb_slide_0 {
     padding-top: 0 !important;

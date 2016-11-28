@@ -1,23 +1,81 @@
+body, span, h1, h2, h3, h4, h5, h6, div, li, a, p {
+  line-height: 1.3em;
+}
+
+body, input, textarea, select {
+    font-family: 'Montserrat Light', Helvetica, Arial, Lucida, sans-serif !important;
+}
+
 .h1, h1 {
   font-weight: bold;
   line-height: 1em;
   color: #52338f;
-  font-size: 52px;
+  font-size: 64px;
   font-family: Advent Pro;
+
+  @media (max-width: 768px) {
+    font-size: 40px;
+  }
 }
 
-.et_pb_bg_layout_dark h1 {
-  color: $color-secondary !important;
+.et_pb_bg_layout_dark {
+  h1 {
+    color: $color-secondary !important;
+  }
+
+  a {
+    color: $color-tertiary;
+    font-family: 'Montserrat';
+    font-weight: bold;
+
+    &:hover {
+      color: darken($color-tertiary, 10%);
+    }
+  }
 }
 
-.et_pb_bg_layout_light h1 {
+.et_pb_bg_layout_light {
+  h1 {
+    color: $color-primary !important;
+  }
+}
+
+.h2, h2 {
   color: $color-primary !important;
+  letter-spacing: 3px;
+  font-size: 24px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: 'Montserrat';
+
+  &:after {
+    content: "";
+    height: 2px;
+    width: 80px;
+    display: block;
+    margin: 20px auto 0 auto;
+    background: $color-semi-black;
+  }
+
+  @media (max-width: 768px) {
+    letter-spacing: 2px;
+    font-size: 18px;
+  }
 }
 
-.h2 {
-  color: #56c3be;
-  font-size: 52px;
+.h3, h3 {
+  color: $color-secondary !important;
+  font-size: 24px;
   font-weight: bold;
+  font-family: 'Montserrat';
+
+  &:after {
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 18px;
+  }
 }
 
 h6 {
