@@ -3,6 +3,16 @@ node_modules
 npm-debug.*
 
 database-backups
+database-exports
+
+.bdbak.sh.swo
+CONFIG.md
+INSTALLATION.md
+README.md
+php.ini
+php_errors.log
+wp-config-sample.php
+wp-content/.gitignore
 
 .htaccess
 index.php
