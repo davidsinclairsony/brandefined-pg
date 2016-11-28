@@ -2,6 +2,8 @@
 node_modules
 npm-debug.*
 
+database-backups
+
 .htaccess
 index.php
 license.txt
