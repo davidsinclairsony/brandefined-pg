@@ -16,7 +16,28 @@
   font-style: normal;
 }
 
+/* for rows that need a divider line */
+@media (min-width: 981px) {
+  .vertically-divided > div:nth-last-child(n + 2) {
+    position: relative;
+  }
+  .vertically-divided > div:nth-last-child(n + 2):after {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    margin-left: 5.4%;
+    width: 2px;
+    height: 100%;
+    content: "";
+    background: #333;
+  }
+}
+
 /* icon first row (for hair and more) */
+.row-with-icon-first:first-of-type {
+  padding-top: 0;
+}
+
 @media (min-width: 981px) {
   .row-with-icon-first .et_pb_column:first-child {
     width: 10.875%;
@@ -729,4 +750,148 @@ body.hair .pricing-columns ul li {
     margin-top: -30px;
     margin-left: -40px;
   }
+}
+
+body.massage h2:after {
+  display: none;
+}
+
+body.massage .surrounding-line {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center;
+  width: 100%;
+}
+
+body.massage .surrounding-line:before, body.massage .surrounding-line:after {
+  content: "";
+  background: #333;
+  width: 20px;
+  height: 2px;
+  -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+}
+
+body.massage .surrounding-line h2 {
+  -ms-flex: 0 0 auto;
+      flex: 0 0 auto;
+  padding: 0 20px;
+}
+
+body.massage .pricing-panels {
+  overflow: hidden;
+}
+
+body.massage .pricing-panels .et_pb_column {
+  background: rgba(51, 51, 51, 0.1);
+  padding: 10px 20px 15px 20px;
+}
+
+@media (min-width: 981px) {
+  body.massage .pricing-panels .et_pb_column {
+    padding-bottom: 500em;
+    margin-bottom: -500em;
+  }
+}
+
+@media (max-width: 980px) {
+  body.massage .pricing-panels {
+    margin-top: -110px;
+    margin-bottom: -90px;
+  }
+}
+
+@media (max-width: 479px) {
+  body.massage .row-with-icon-first .et_pb_text:nth-child(n + 2) {
+    margin-left: -40px;
+  }
+}
+
+body.massage .pricing-columns {
+  margin-top: -20px;
+}
+
+body.massage .pricing-columns.single {
+  -moz-columns: 0 1;
+       columns: 0 1;
+}
+
+body.massage .pricing-columns ul {
+  list-style: none;
+  padding: 0;
+}
+
+body.massage .pricing-columns ul li {
+  padding-top: 10px;
+}
+
+@media (min-width: 601px) {
+  body.massage .pricing-columns {
+    -moz-columns: 30px 2;
+         columns: 30px 2;
+  }
+}
+
+@media (max-width: 600px) {
+  body.massage .pricing-columns {
+    -moz-columns: 0 1;
+         columns: 0 1;
+  }
+}
+
+@media (max-width: 479px) {
+  body.massage .pricing-columns {
+    margin-top: -30px;
+  }
+}
+
+body.massage .symptoms-columns {
+  margin-top: -20px;
+}
+
+body.massage .symptoms-columns ul {
+  list-style: none;
+  padding: 0;
+}
+
+@media (min-width: 981px) {
+  body.massage .symptoms-columns {
+    -moz-columns: 30px 3;
+         columns: 30px 3;
+  }
+}
+
+@media (max-width: 980px) {
+  body.massage .symptoms-columns {
+    -moz-columns: 30px 2;
+         columns: 30px 2;
+  }
+}
+
+@media (max-width: 600px) {
+  body.massage .symptoms-columns {
+    -moz-columns: 0 1;
+         columns: 0 1;
+  }
+}
+
+@media (max-width: 479px) {
+  body.massage .symptoms-columns {
+    margin-top: -30px;
+  }
+}
+
+body.contact-us form .et_pb_contact_field_half {
+  width: 33%;
+}
+
+body.contact-us form .et_contact_bottom_container {
+  float: none;
+  text-align: left;
+  padding-left: 3%;
+}
+
+body.contact-us h2:after {
+  display: none;
 }
