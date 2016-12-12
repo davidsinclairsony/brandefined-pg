@@ -3441,11 +3441,11 @@ some breakpoints for reuse
   font-weight: bold;
   text-transform: uppercase;
   font-size: 16px;
-  height: 50px;
   border-radius: 2em;
-  border: 4px solid black;
+  border: 2px solid black;
   display: inline-block;
   padding: 10px 20px;
+  cursor: pointer;
 }
 
 #top-header {
@@ -3622,6 +3622,12 @@ some breakpoints for reuse
   }
 }
 
+@media (max-width: 980px) {
+  .free-nutrition-report {
+    padding: 0;
+  }
+}
+
 .free-nutrition-report h2 {
   font-family: "GlacialIndifference", sans-serif;
 }
@@ -3717,7 +3723,7 @@ some breakpoints for reuse
 
 .free-nutrition-report .get-your-free-nutrition-report .button {
   transition: all 0.4s ease-in-out;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Montserrat", sans-serif !important;
   font-weight: bold;
   text-transform: uppercase;
   font-size: 16px;
@@ -3738,6 +3744,12 @@ some breakpoints for reuse
 
 .contact-map-hours {
   font-size: 20px;
+}
+
+@media (max-width: 980px) {
+  .contact-map-hours {
+    padding: 0;
+  }
 }
 
 .contact-map-hours h2 {
@@ -3763,6 +3775,12 @@ some breakpoints for reuse
   display: block;
   min-height: 200px;
   height: 100%;
+}
+
+@media (max-width: 980px) {
+  .sub-footer {
+    padding: 0;
+  }
 }
 
 .sub-footer .logo img {
@@ -4011,6 +4029,12 @@ body.home .welcome-to-pgfit {
   margin: 0 auto;
 }
 
+@media (max-width: 980px) {
+  body.home .welcome-to-pgfit {
+    padding: 0;
+  }
+}
+
 body.home .welcome-to-pgfit h1 {
   font-family: "Montserrat", sans-serif;
   color: black;
@@ -4028,12 +4052,28 @@ body.home .welcome-to-pgfit h1 img {
   top: -5px;
 }
 
+body.home .welcome-to-pgfit h3 {
+  background: #FF0000;
+  font-family: "Montserrat", sans-serif;
+  color: white;
+  font-size: 26px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
 body.home .welcome-to-pgfit p {
   font-size: 22px;
 }
 
+@media (max-width: 980px) {
+  body.home .about-us {
+    padding: 0;
+  }
+}
+
 body.home .about-us p {
-  font-size: 20px;
+  font-size: 16px;
 }
 
 body.home .about-us .arrow-button {
@@ -4055,6 +4095,12 @@ body.home .about-us .arrow-button:hover {
   color: #e6e6e6;
 }
 
+@media (max-width: 980px) {
+  body.home .news-section {
+    padding: 0;
+  }
+}
+
 body.home .news-section h2 {
   font-family: "GlacialIndifference", sans-serif;
   font-size: 52px;
@@ -4071,4 +4117,270 @@ body.home .news-section .round-button {
 
 body.home .news-section .round-button:hover {
   background: #262626;
+}
+
+@media (max-width: 980px) {
+  body.home .news-section .et_pb_code ul li {
+    width: 100%;
+  }
+  body.home .news-section .et_pb_code ul li:nth-child(n + 2) {
+    padding-top: 20px;
+  }
+}
+
+@media (min-width: 981px) {
+  body.home .news-section .et_pb_code ul li {
+    width: 30%;
+  }
+}
+
+body.home .news-section .et_pb_code ul {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-align: stretch;
+      align-items: stretch;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
+  list-style: none;
+}
+
+body.home .news-section .et_pb_code ul li {
+  -ms-flex: 0 0 auto;
+      flex: 0 0 auto;
+}
+
+body.home .news-section .et_pb_code ul li:nth-child(1) a .bottom {
+  background: #FF0000;
+}
+
+body.home .news-section .et_pb_code ul li:nth-child(1) a .bottom:hover {
+  background: #e60000;
+}
+
+body.home .news-section .et_pb_code ul li:nth-child(2) a .bottom {
+  background: #4077bc;
+}
+
+body.home .news-section .et_pb_code ul li:nth-child(2) a .bottom:hover {
+  background: #3a6ba9;
+}
+
+body.home .news-section .et_pb_code ul li:nth-child(3) a .bottom {
+  background: #8cc540;
+}
+
+body.home .news-section .et_pb_code ul li:nth-child(3) a .bottom:hover {
+  background: #7fb537;
+}
+
+body.home .news-section .et_pb_code ul li a {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  height: 100%;
+}
+
+body.home .news-section .et_pb_code ul li a .top {
+  background-position: center;
+  background-size: cover;
+  padding: 20px 10px;
+  height: 180px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: end;
+      align-items: flex-end;
+  -ms-flex-pack: center;
+      justify-content: center;
+  position: relative;
+  -ms-flex: 0 0 auto;
+      flex: 0 0 auto;
+}
+
+body.home .news-section .et_pb_code ul li a .top:after {
+  background: rgba(0, 0, 0, 0.3);
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+body.home .news-section .et_pb_code ul li a .top h4 {
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+  z-index: 1;
+}
+
+body.home .news-section .et_pb_code ul li a .bottom {
+  padding: 20px 30px;
+  text-align: center;
+  -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+  height: 100%;
+}
+
+body.home .news-section .et_pb_code ul li a .bottom h5 {
+  color: white;
+  font-family: "GlacialIndifference", sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: lowercase;
+  letter-spacing: 2px;
+}
+
+body.home .news-section .et_pb_code ul li a .bottom p {
+  color: white;
+}
+
+@media (max-width: 980px) {
+  body.home .contact-us-today .et_pb_row {
+    padding: 0;
+  }
+}
+
+body.home .contact-us-today h2 {
+  font-family: "GlacialIndifference", sans-serif;
+  font-size: 52px;
+  font-weight: bold;
+  color: white;
+}
+
+body.home .contact-us-today form {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+body.home .contact-us-today input:not(.button), body.home .contact-us-today textarea {
+  width: 100% !important;
+  background: none;
+  border: 2px solid white !important;
+  color: white;
+  padding: 10px 15px !important;
+}
+
+body.home .contact-us-today ::-webkit-input-placeholder {
+  color: white;
+  font-style: italic;
+}
+
+body.home .contact-us-today ::-moz-placeholder {
+  color: white;
+  font-style: italic;
+}
+
+body.home .contact-us-today :-ms-input-placeholder {
+  color: white;
+  font-style: italic;
+}
+
+body.home .contact-us-today ::placeholder {
+  color: white;
+  font-style: italic;
+}
+
+body.home .contact-us-today label {
+  display: none !important;
+}
+
+body.home .contact-us-today ul.gform_fields li {
+  padding: 0;
+}
+
+@media (max-width: 980px) {
+  body.home .contact-us-today .gfield_course_option_wrapper ul li {
+    width: 100%;
+  }
+}
+
+@media (min-width: 981px) {
+  body.home .contact-us-today .gfield_course_option_wrapper ul li {
+    width: 30%;
+  }
+}
+
+body.home .contact-us-today .gfield_course_option_wrapper ul {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
+  padding: 0;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+body.home .contact-us-today .gfield_course_option_wrapper ul li {
+  -ms-flex: 0 0 auto;
+      flex: 0 0 auto;
+  margin-top: 0;
+  padding: 0;
+}
+
+body.home .contact-us-today .gfield_course_option_wrapper ul li:nth-child(1), body.home .contact-us-today .gfield_course_option_wrapper ul li:nth-last-child(1) {
+  display: none;
+}
+
+body.home .contact-us-today .gform_footer {
+  margin-top: 0;
+  text-align: center;
+}
+
+body.home .contact-us-today .gform_footer .button {
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+  font-family: "Montserrat", sans-serif !important;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 16px;
+  min-width: 150px;
+  border-radius: 2em;
+  border: 2px solid white;
+  display: inline-block;
+  padding: 10px 20px;
+  color: white;
+  background: none;
+}
+
+body.home .contact-us-today .gform_footer .button:hover {
+  background: white;
+  color: #8cc540;
+}
+
+body.home .membership-options h2 {
+  font-family: "GlacialIndifference", sans-serif;
+  font-size: 52px;
+  font-weight: bold;
+  color: white;
+}
+
+@media (max-width: 980px) {
+  body.home .membership-options .et_pb_row {
+    padding: 0;
+  }
+  body.home .membership-options img {
+    max-width: 300px;
+  }
+}
+
+body.home .membership-options .round-button {
+  border-color: white;
+  color: white;
+}
+
+body.home .membership-options .round-button:hover {
+  background: white;
+  color: #333;
+}
+
+body.home .membership-options p {
+  font-size: 18px;
 }

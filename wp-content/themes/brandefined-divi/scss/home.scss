@@ -139,6 +139,10 @@ body.home {
     max-width: 800px;
     margin: 0 auto;
 
+    @media (max-width: 980px) {
+      padding: 0;
+    }
+
     h1 {
       font-family: $font-tertiary;
       color: black;
@@ -156,14 +160,28 @@ body.home {
       }
     }
 
+    h3 {
+      background: $color-primary;
+      font-family: $font-tertiary;
+      color: white;
+      font-size: 26px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
     p {
       font-size: 22px;
     }
   }
 
   .about-us {
+    @media (max-width: 980px) {
+      padding: 0;
+    }
+
     p {
-      font-size: 20px;
+      font-size: 16px;
     }
 
     .arrow-button {
@@ -188,6 +206,10 @@ body.home {
   }
 
   .news-section {
+    @media (max-width: 980px) {
+      padding: 0;
+    }
+
     h2 {
       font-family: $font-secondary;
       font-size: 52px;
@@ -204,6 +226,272 @@ body.home {
       &:hover {
         background: lighten(black, 15%);
       }
+    }
+
+    .et_pb_code {
+      @media (max-width: 980px) {
+        ul {
+          li {
+            width: 100%;
+
+            &:nth-child(n + 2) {
+              padding-top: 20px;
+            }
+          }
+        }
+      }
+
+      @media (min-width: 981px) {
+        ul {
+          li {
+            width: 30%;
+          }
+        }
+      }
+
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
+        justify-content: space-between;
+        list-style: none;
+
+        li {
+          flex: 0 0 auto;
+
+          &:nth-child(1) a {
+            .bottom {
+              background: $color-primary;
+
+              &:hover {
+                background: darken($color-primary, 5%);
+              }
+            }
+          }
+
+          &:nth-child(2) a {
+            .bottom {
+              background: $color-quinary;
+
+              &:hover {
+                background: darken($color-quinary, 5%);
+              }
+            }
+          }
+
+          &:nth-child(3) a {
+            .bottom {
+              background: $color-senary;
+
+              &:hover {
+                background: darken($color-senary, 5%);
+              }
+            }
+          }
+
+          a {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+
+            .top {
+              background-position: center;
+              background-size: cover;
+              padding: 20px 10px;
+              height: 180px;
+              display: flex;
+              align-items: flex-end;
+              justify-content: center;
+              position: relative;
+              flex: 0 0 auto;
+
+              &:after {
+                background: transparentize(black, .7);
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 0;
+              }
+
+              h4 {
+                color: white;
+                font-family: $font-tertiary;
+                font-size: 20px;
+                font-weight: bold;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                text-align: center;
+                z-index: 1;
+              }
+            }
+
+            .bottom {
+              padding: 20px 30px;
+              text-align: center;
+              flex: 1 1 auto;
+              height: 100%;
+
+              h5 {
+                color: white;
+                font-family: $font-secondary;
+                font-size: 20px;
+                font-weight: bold;
+                text-transform: lowercase;
+                letter-spacing: 2px;
+              }
+
+              p {
+                color: white;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .contact-us-today {
+    @media (max-width: 980px) {
+      .et_pb_row {
+        padding: 0;
+      }
+    }
+
+    h2 {
+      font-family: $font-secondary;
+      font-size: 52px;
+      font-weight: bold;
+      color: white;
+    }
+
+    form {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    input:not(.button), textarea {
+      width: 100% !important;
+      background: none;
+      border: 2px solid white !important;
+      color: white;
+      padding: 10px 15px !important;
+    }
+
+    ::placeholder {
+       color: white;
+       font-style: italic;
+    }
+
+    label {
+      display: none !important;
+    }
+
+    ul.gform_fields {
+      li {
+        padding: 0;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .gfield_course_option_wrapper {
+        ul {
+          li {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    @media (min-width: 981px) {
+      .gfield_course_option_wrapper {
+        ul {
+          li {
+            width: 30%;
+          }
+        }
+      }
+    }
+
+    .gfield_course_option_wrapper {
+      ul {
+        display: flex;
+        justify-content: space-between;
+        padding: 0;
+        flex-wrap: wrap;
+
+        li {
+          flex: 0 0 auto;
+          margin-top: 0;
+          padding: 0;
+
+          &:nth-child(1),
+          &:nth-last-child(1) {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .gform_footer {
+      margin-top: 0;
+      text-align: center;
+
+      .button {
+        cursor: pointer;
+        transition: all 0.4s ease-in-out;
+        font-family: $font-tertiary !important;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 16px;
+        min-width: 150px;
+        border-radius: 2em;
+        border: 2px solid white;
+        display: inline-block;
+        padding: 10px 20px;
+        color: white;
+        background: none;
+
+        &:hover {
+          background: white;
+          color: $color-senary;
+        }
+      }
+    }
+  }
+
+  .membership-options {
+    h2 {
+      font-family: $font-secondary;
+      font-size: 52px;
+      font-weight: bold;
+      color: white;
+    }
+
+    @media (max-width: 980px) {
+      .et_pb_row {
+        padding: 0;
+      }
+
+      img {
+        max-width: 300px;
+      }
+    }
+
+    .round-button {
+      border-color: white;
+      color: white;
+
+      &:hover {
+        background: white;
+        color: $color-semi-black;
+      }
+    }
+
+    p {
+      font-size: 18px;
     }
   }
 }
