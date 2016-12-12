@@ -1177,7 +1177,6 @@ class wfLog {
 		exit();
 	}
 	private function redirect($URL){
-		wfUtils::doNotCache();
 		wp_redirect($URL, 302);
 		exit();
 	}
@@ -1851,7 +1850,7 @@ class wfLiveTrafficQuery {
 		$limit = absint($this->getLimit());
 		$offset = absint($this->getOffset());
 
-		$wheres = array("h.action != 'logged:waf'", "h.action != 'scan:detectproxy'");
+		$wheres = array("h.action != 'logged:waf'");
 		if ($startDate) {
 			$wheres[] = $wpdb->prepare('h.ctime > %f', $startDate);
 		}

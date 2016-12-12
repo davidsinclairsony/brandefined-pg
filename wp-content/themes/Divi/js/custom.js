@@ -63,7 +63,7 @@
 		$et_top_menu.find('.menu-item-has-children > a').on( 'touchstart', function(){
 			et_parent_menu_longpress_start = new Date().getTime();
 		} ).on( 'touchend', function(){
-			var et_parent_menu_longpress_end = new Date().getTime();
+			var et_parent_menu_longpress_end = new Date().getTime()
 			if ( et_parent_menu_longpress_end  >= et_parent_menu_longpress_start + et_parent_menu_longpress_limit ) {
 				et_parent_menu_click = true;
 			} else {
@@ -96,24 +96,23 @@
 			}
 		});
 
-		function et_header_menu_split(){
-			var $logo_container = $( '#main-header > .container > .logo_container' ),
-				$logo_container_splitted = $('.centered-inline-logo-wrap > .logo_container'),
-				et_top_navigation_li_size = $et_top_navigation.children('nav').children('ul').children('li').size(),
-				et_top_navigation_li_break_index = Math.round( et_top_navigation_li_size / 2 ) - 1;
-
-			if ( $et_window.width() > 980 && $logo_container.length ) {
-				$('<li class="centered-inline-logo-wrap"></li>').insertAfter($et_top_navigation.find('nav > ul >li:nth('+et_top_navigation_li_break_index+')') );
-				$logo_container.appendTo( $et_top_navigation.find('.centered-inline-logo-wrap') );
-			}
-
-			if ( $et_window.width() <= 980 && $logo_container_splitted.length ) {
-				$logo_container_splitted.prependTo('#main-header > .container');
-				$('#main-header .centered-inline-logo-wrap').remove();
-			}
-		}
-
 		if ( $et_header_style_split.length && $et_vertical_nav.length < 1 ) {
+			function et_header_menu_split(){
+				var $logo_container = $( '#main-header > .container > .logo_container' ),
+					$logo_container_splitted = $('.centered-inline-logo-wrap > .logo_container'),
+					et_top_navigation_li_size = $et_top_navigation.children('nav').children('ul').children('li').size(),
+					et_top_navigation_li_break_index = Math.round( et_top_navigation_li_size / 2 ) - 1;
+
+				if ( $et_window.width() > 980 && $logo_container.length ) {
+					$('<li class="centered-inline-logo-wrap"></li>').insertAfter($et_top_navigation.find('nav > ul >li:nth('+et_top_navigation_li_break_index+')') );
+					$logo_container.appendTo( $et_top_navigation.find('.centered-inline-logo-wrap') );
+				}
+
+				if ( $et_window.width() <= 980 && $logo_container_splitted.length ) {
+					$logo_container_splitted.prependTo('#main-header > .container');
+					$('#main-header .centered-inline-logo-wrap').remove();
+				}
+			}
 			et_header_menu_split();
 
 			$(window).resize(function(){
@@ -541,8 +540,7 @@
 				et_container_width_in_pixel = ( typeof et_container_css_width !== 'undefined' ) ? et_container_css_width.substr( -1, 1 ) !== '%' : '',
 				et_container_actual_width   = ( et_container_width_in_pixel ) ? parseInt( $et_container.width() ) : ( ( parseInt( $et_container.width() ) / 100 ) * window_width ), // $et_container.width() doesn't recognize pixel or percentage unit. It's our duty to understand what it returns and convert it properly
 				containerWidthChanged       = et_container_previous_width !== et_container_actual_width,
-				$slide_menu_container       = $( '.et_slide_in_menu_container' ),
-				page_container_margin;
+				$slide_menu_container       = $( '.et_slide_in_menu_container' );
 
 			if ( et_is_fixed_nav && containerWidthChanged ) {
 				if ( typeof update_page_container_position != 'undefined' ){
@@ -576,15 +574,15 @@
 				$slide_menu_container.css( { right: '-' + parseInt( $slide_menu_container.innerWidth() ) + 'px' } );
 
 				if ( $( 'body' ).hasClass( 'et_boxed_layout' ) && et_is_fixed_nav ) {
-					page_container_margin = $main_container_wrapper.css( 'margin-left' );
+					var page_container_margin = $main_container_wrapper.css( 'margin-left' );
 					$main_header.css( { left : page_container_margin } );
 				}
 			}
 
 			if ( $slide_menu_container.length && $( 'body' ).hasClass( 'et_pb_slide_menu_active' ) ) {
 				if ( $( 'body' ).hasClass( 'et_boxed_layout' ) ) {
-					var left_position;
-					page_container_margin = parseFloat( $main_container_wrapper.css( 'margin-left' ) );
+					var page_container_margin = parseFloat( $main_container_wrapper.css( 'margin-left' ) ),
+						left_position;
 
 					$main_container_wrapper.css( { left: '-' + ( parseInt( $slide_menu_container.innerWidth() ) - page_container_margin ) + 'px' } );
 
@@ -640,9 +638,8 @@
 			}
 
 			if ( $.fn.waypoint ) {
-				var $waypoint_selector;
 				if ( et_is_vertical_fixed_nav ) {
-					$waypoint_selector = $('#main-content');
+					var $waypoint_selector = $('#main-content');
 
 					$waypoint_selector.waypoint( {
 						handler : function( direction ) {
@@ -663,14 +660,14 @@
 
 						// Fullscreen section at the first row requires specific adjustment
 						if ( $et_pb_first_row.is( '.et_pb_fullwidth_section' ) ){
-							$waypoint_selector = $et_pb_first_row.children('.et_pb_module');
+							var $waypoint_selector = $et_pb_first_row.children('.et_pb_module');
 						} else {
-							$waypoint_selector = $et_pb_first_row.find('.et_pb_row');
+							var $waypoint_selector = $et_pb_first_row.find('.et_pb_row');
 						}
 					} else if ( $et_transparent_nav.length && ! $et_vertical_nav.length && $et_main_content_first_row.length ) {
-						$waypoint_selector = $('#content-area');
+						var $waypoint_selector = $('#content-area');
 					} else {
-						$waypoint_selector = $('#main-content');
+						var $waypoint_selector = $('#main-content');
 					}
 
 					$waypoint_selector.waypoint( {
@@ -786,7 +783,7 @@
 			}
 
 			if ( $( 'body' ).hasClass( 'et_vertical_nav' ) ) {
-				side_offset = top_header_height + add_offset + 60;
+				side_offset = top_header_height + add_offset + 60
 			} else {
 				side_offset = top_header_height + main_header_height + add_offset;
 			}
@@ -1029,13 +1026,14 @@
 		/**
 		 * Visual Builder adjustment
 		 */
-		function et_fb_side_nav_page_init() {
-			$( window ).off( 'scroll', window.et_pb_window_side_nav_scroll_init );
-			$( '#main-content .et_pb_side_nav' ).off( 'click', '.et_pb_side_nav a' );
-			$( '#main-content .et_pb_side_nav' ).remove();
-			et_pb_side_nav_page_init();
-		}
 		if ( $('body').is('.et-fb') ) {
+			function et_fb_side_nav_page_init() {
+				$( window ).off( 'scroll', window.et_pb_window_side_nav_scroll_init );
+				$( '#main-content .et_pb_side_nav' ).off( 'click', '.et_pb_side_nav a' );
+				$( '#main-content .et_pb_side_nav' ).remove();
+				et_pb_side_nav_page_init();
+			}
+
 			$(window).on( 'et_fb_root_did_mount', function() {
 				et_fb_side_nav_page_init();
 
@@ -1064,11 +1062,10 @@
 			is_vertical_nav      = $body.hasClass( 'et_vertical_nav' ),
 			is_hide_primary_logo = $body.hasClass( 'et_hide_primary_logo' ),
 			is_hide_fixed_logo   = $body.hasClass( 'et_hide_fixed_logo' ),
+			is_onload            = typeof is_onload === 'undefined' ? false : is_onload,
 			logo_height_base     = is_fixed_nav ? top_nav_height : top_nav_fixed_height,
 			logo_wrapper_width,
 			logo_wrapper_height;
-
-		is_onload = typeof is_onload === 'undefined' ? false : is_onload;
 
 		// Fix for inline centered logo in horizontal nav
 		if ( is_header_split && ! is_vertical_nav ) {
@@ -1142,26 +1139,6 @@
 
 		$( 'body' ).toggleClass( 'et_pb_slide_menu_active' );
 		$slide_menu_container.toggleClass( 'et_pb_slide_menu_opened' );
-	}
-
-	// Scrolling to the correct place on page if Fixed Nav enabled
-	function et_adjust_woocommerce_checkout_scroll() {
-		if ( ! et_is_fixed_nav ) {
-			return;
-		}
-
-		var window_width = parseInt( $et_window.width() );
-
-		if ( 980 >= window_width ) {
-			return;
-		}
-
-		var headerHeight = parseInt( $( '#main-header' ).innerHeight() );
-
-		// scroll to the top of checkout form taking into account fixed header height
-		$( 'html, body' ).animate({
-			scrollTop: ( $( 'form.checkout' ).offset().top - 100 - headerHeight )
-		}, 1000 );
 	}
 
 	$( '#main-header' ).on( 'click', '.et_toggle_slide_menu', function() {
@@ -1247,17 +1224,4 @@
 		}
 	}
 
-	// adjust the scrolling position on Woocommerce checkout page in case of error
-	$( document.body ).on( 'checkout_error', function() {
-		et_adjust_woocommerce_checkout_scroll();
-	} );
-
-	$( document.body ).on( 'updated_checkout', function( data ) {
-		if ( 'failure' !== data.result ) {
-			return;
-		}
-
-		et_adjust_woocommerce_checkout_scroll();
-	} );
-
-})(jQuery);
+})(jQuery)

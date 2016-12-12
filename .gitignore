@@ -2,8 +2,7 @@
 node_modules
 npm-debug.*
 
-database-backups
-database-exports
+database
 
 .bdbak.sh.swo
 CONFIG.md

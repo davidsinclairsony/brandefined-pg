@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ET_BUILDER_PRODUCT_VERSION' ) ) {
 	// Note, when this is updated, you must also update corresponding version in builder.js: `window.et_builder_version`
-	define( 'ET_BUILDER_PRODUCT_VERSION', '3.0.21' );
+	define( 'ET_BUILDER_PRODUCT_VERSION', '3.0.14' );
 }
 
 if ( ! defined( 'ET_BUILDER_VERSION' ) ) {
@@ -698,15 +698,18 @@ function et_fb_process_to_shortcode( $object, $options = array(), $library_item_
 			if ( isset( $font_icon_fields[ $item['type'] ][ $attribute ] ) ) {
 				$value = esc_attr( $value );
 			} else {
-				// allow the use of '<', '>' characters within Custom CSS settings
-				if ( 0 !== strpos( $attribute, 'custom_css_' ) ) {
-					$replace_pairs = array (
-						'>' => '&gt;',
-						'<' => '&lt;',
-					);
+				// correctly sanitize the strings with %date variable. sanitize_text_field will strip the '%da' and '%date' will be saved as 'te'.
+				$prepared_value = str_replace( '%date', '___et-fb-date___', $value );
+				$sanitized_value = str_replace( '___et-fb-date___', '%date', sanitize_text_field( $prepared_value ) );
 
-					$value = strtr( $value, $replace_pairs );
-				}
+				$replace_pairs = array (
+					'>' => '&gt;',
+					'<' => '&lt;',
+				);
+
+				$sanitized_value = strtr( $sanitized_value, $replace_pairs );
+
+				$value = $sanitized_value;
 			}
 
 			// handle content
@@ -2099,13 +2102,20 @@ function et_pb_add_builder_page_js_css(){
 		'default_color_palette'                    => implode( '|', et_pb_get_default_color_palette() ),
 		'page_section_bg_color'                    => get_post_meta( get_the_ID(), '_et_pb_section_background_color', true ),
 		'page_gutter_width'                        => '' !== ( $saved_gutter_width = get_post_meta( get_the_ID(), '_et_pb_gutter_width', true ) ) ? $saved_gutter_width : et_get_option( 'gutter_width', 3 ),
-		'product_version'                          => ET_BUILDER_PRODUCT_VERSION,
-		'force_cache_purge'                        => (int) $force_cache_update,
-		'memory_limit_increased'                   => esc_html__( 'Your memory limit has been increased', 'et_builder' ),
-		'memory_limit_not_increased'               => esc_html__( "Your memory limit can't be changed automatically", 'et_builder' ),
-		'google_api_key'                           => et_pb_get_google_api_key(),
-		'options_page_url'                         => et_pb_get_options_page_link(),
-		'et_pb_google_maps_script_notice'          => et_pb_enqueue_google_maps_script(),
+		'product_version'                          => ET_BUILDER_VERSION,
+		'invalid_color'    => esc_html__( 'Invalid Color', 'et_builder' ),
+		'et_pb_preview_nonce' => wp_create_nonce( 'et_pb_preview_nonce' ),
+		'is_divi_library'  => 'et_pb_layout' === $typenow ? 1 : 0,
+		'layout_type'      => 'et_pb_layout' === $typenow ? et_pb_get_layout_type( get_the_ID() ) : 0,
+		'is_plugin_used'   => et_is_builder_plugin_active(),
+		'yoast_content'    => et_is_yoast_seo_plugin_active() ? $post_content_processed : '',
+		'product_version'  => ET_BUILDER_PRODUCT_VERSION,
+		'force_cache_purge' => (int) $force_cache_update,
+		'memory_limit_increased' => esc_html__( 'Your memory limit has been increased', 'et_builder' ),
+		'memory_limit_not_increased' => esc_html__( "Your memory limit can't be changed automatically", 'et_builder' ),
+		'google_api_key' => et_pb_get_google_api_key(),
+		'options_page_url' => et_pb_get_options_page_link(),
+		'et_pb_google_maps_script_notice' => et_pb_enqueue_google_maps_script(),
 	), et_pb_history_localization() ) ) );
 
 	wp_localize_script( 'et_pb_admin_js', 'et_pb_ab_js_options', apply_filters( 'et_pb_ab_js_options', array(
@@ -2295,10 +2305,6 @@ function et_pb_add_builder_page_js_css(){
 				esc_html__( 'Conversion Rate', 'et_builder' ),
 			),
 		),
-	) ) );
-
-	wp_localize_script( 'et_pb_admin_js', 'et_pb_help_options', apply_filters( 'et_pb_help_options', array(
-		'shortcuts' => et_builder_get_shortcuts('bb'),
 	) ) );
 
 	et_core_load_main_fonts();
@@ -3556,21 +3562,6 @@ function et_pb_pagebuilder_meta_box() {
 		et_pb_is_allowed( 'add_module' ) ? $insert_module_button : ''
 	);
 
-	// Insert Row(s)
-	$insert_row_button = sprintf(
-		'<a href="#" class="et-pb-insert-row">
-			<span>%1$s</span>
-		</a>',
-		esc_html__( 'Insert Row(s)', 'et_builder' )
-	);
-
-	// Insert Row Template
-	printf(
-		'<script type="text/template" id="et-builder-specialty-column-template">
-			%1$s
-		</script>',
-		et_pb_is_allowed( 'add_module' ) ? $insert_row_button : ''
-	);
 
 	// Advanced Settings Buttons Module
 	printf(
@@ -4244,24 +4235,6 @@ function et_pb_pagebuilder_meta_box() {
 		</script>',
 		et_builder_get_cache_notification_modal()
 	);
-
-	// Help Template
-	printf(
-		'<script type="text/template" id="et-builder-help-template">
-			<h3 class="et-pb-settings-heading">%1$s</h3>
-
-			<ul class="et-pb-options-tabs-links et-pb-help-switcher">
-				<li class="et-pb-new-module et-pb-options-tabs-links-active" data-open_tab="et-pb-shortcuts-tab">
-					<a href="#">%2$s</a>
-				</li>
-			</ul>
-
-			<div class="et-pb-main-settings et-pb-main-settings-full et-pb-shortcuts-tab active-container"></div>
-		</script>',
-		esc_html__( 'Divi Builder Helper', 'et_builder' ),
-		esc_html__( 'Shortcuts', 'et_builder' )
-	);
-
 
 	do_action( 'et_pb_after_page_builder' );
 }
@@ -4950,21 +4923,13 @@ endif;
 
 if ( ! function_exists( 'et_get_first_video' ) ) :
 function et_get_first_video() {
-	$first_url    = '';
 	$first_video  = '';
 	$video_width  = (int) apply_filters( 'et_blog_video_width', 1080 );
 	$video_height = (int) apply_filters( 'et_blog_video_height', 630 );
 
-	$i = 0;
-
 	preg_match_all( '|^\s*https?://[^\s"]+\s*$|im', get_the_content(), $urls );
 
 	foreach ( $urls[0] as $url ) {
-		$i++;
-
-		if ( 1 === $i ) {
-			$first_url = trim( $url );
-		}
 
 		$oembed = wp_oembed_get( esc_url( $url ) );
 
@@ -4979,25 +4944,16 @@ function et_get_first_video() {
 		break;
 	}
 
-	if ( '' === $first_video ) {
-		$content = get_the_content();
+	if ( '' === $first_video && has_shortcode( get_the_content(), 'video' )  ) {
+		$regex = get_shortcode_regex();
+		preg_match( "/{$regex}/s", get_the_content(), $match );
 
-		if ( ! has_shortcode( $content, 'video' ) && ! empty( $first_url ) ) {
-			$video_shortcode = sprintf( '[video src="%1$s" /]', esc_attr( $first_url ) );
-			$content = str_replace( $first_url, $video_shortcode, $content );
-		}
+		$first_video = preg_replace( "/width=\"[0-9]*\"/", "width=\"{$video_width}\"", $match[0] );
+		$first_video = preg_replace( "/height=\"[0-9]*\"/", "height=\"{$video_height}\"", $first_video );
 
-		if ( has_shortcode( $content, 'video' ) ) {
-			$regex = get_shortcode_regex();
-			preg_match( "/{$regex}/s", $content, $match );
+		add_filter( 'the_content', 'et_delete_post_video' );
 
-			$first_video = preg_replace( "/width=\"[0-9]*\"/", "width=\"{$video_width}\"", $match[0] );
-			$first_video = preg_replace( "/height=\"[0-9]*\"/", "height=\"{$video_height}\"", $first_video );
-
-			add_filter( 'the_content', 'et_delete_post_video' );
-
-			$first_video = do_shortcode( et_pb_fix_shortcodes( $first_video ) );
-		}
+		$first_video = do_shortcode( et_pb_fix_shortcodes( $first_video ) );
 	}
 
 	return ( '' !== $first_video ) ? $first_video : false;
@@ -5024,20 +4980,6 @@ function et_delete_post_video( $content ) {
 			}
 		}
 	endif;
-
-	return $content;
-}
-endif;
-
-if ( ! function_exists( 'et_delete_post_first_video' ) ) :
-function et_delete_post_first_video( $content ) {
-	if ( 'video' === et_pb_post_format() && false !== ( $first_video = et_get_first_video() ) ) {
-		preg_match_all( '|^\s*https?:\/\/[^\s"]+\s*|im', $content, $urls );
-
-		if ( ! empty( $urls[0] ) ) {
-			$content = str_replace( $urls[0], '', $content );
-		}
-	}
 
 	return $content;
 }
@@ -6275,25 +6217,13 @@ function et_fb_prepare_tag( $tag ) {
 }
 
 if ( ! function_exists( 'et_strip_shortcodes' ) ) :
-function et_strip_shortcodes( $content, $truncate_post_based_shortcodes_only = false ) {
-	global $shortcode_tags;
-
+function et_strip_shortcodes( $content ) {
 	$content = trim( $content );
 
 	$strip_content_shortcodes = array(
 		'et_pb_code',
-		'et_pb_fullwidth_code'
+		'et_pb_fullwidth_code',
 	);
-
-	// list of post-based shortcodes
-	if ( $truncate_post_based_shortcodes_only ) {
-		$strip_content_shortcodes = array(
-			'et_pb_post_slider',
-			'et_pb_fullwidth_post_slider',
-			'et_pb_blog',
-			'et_pb_portfolio'
-		);
-	}
 
 	foreach ( $strip_content_shortcodes as $shortcode_name ) {
 		$regex = sprintf(
@@ -6304,27 +6234,7 @@ function et_strip_shortcodes( $content, $truncate_post_based_shortcodes_only = f
 		$content = preg_replace( $regex, '', $content );
 	}
 
-	// do not proceed if we need to truncate post-based shortcodes only
-	if ( $truncate_post_based_shortcodes_only ) {
-		return $content;
-	}
-
-	$shortcode_tag_names = array();
-	foreach ( $shortcode_tags as $shortcode_tag_name => $shortcode_tag_cb ) {
-		if ( 0 !== strpos( $shortcode_tag_name, 'et_pb_' ) ) {
-			continue;
-		}
-
-		$shortcode_tag_names[] = $shortcode_tag_name;
-	}
-
-	$et_shortcodes = implode( '|', $shortcode_tag_names );
-
-	$regex_opening_shortcodes = sprintf( '(\[(%1$s)[^\]]+\])', esc_html( $et_shortcodes ) );
-	$regex_closing_shortcodes = sprintf( '(\[\/(%1$s)\])', esc_html( $et_shortcodes ) );
-
-	$content = preg_replace( $regex_opening_shortcodes, '', $content );
-	$content = preg_replace( $regex_closing_shortcodes, '', $content );
+	$content = preg_replace( '(\[[^\]]+\])', '', $content );
 
 	return $content;
 }
@@ -6357,432 +6267,3 @@ function et_pb_maybe_flush_3_0_rewrite_rules() {
 	et_builder_maybe_flush_rewrite_rules( '3_0_flush_rewrite_rules_2' );
 }
 add_action( 'init', 'et_pb_maybe_flush_3_0_rewrite_rules', 9 );
-
-/**
- * Get list of shortcut available on BB and FB
- * @param string (fb|bb) shortcut mode
- * @return array shortcut list
- */
-if ( ! function_exists( 'et_builder_get_shortcuts' ) ) :
-function et_builder_get_shortcuts( $on = 'fb' ) {
-	$shortcuts = apply_filters('et_builder_get_shortcuts', array(
-		'page' => array(
-			'page_title' => array(
-				'title' => esc_html__( 'Page Shortcuts', 'et_builder' ),
-				'on' => array(
-					'fb',
-					'bb',
-				),
-			),
-			'undo' => array(
-				'kbd'  => array( 'super', 'z' ),
-				'desc' => esc_html__( 'Undo', 'et_builder' ),
-				'on' => array(
-					'fb',
-					'bb',
-				),
-			),
-			'redo' => array(
-				'kbd'  => array( 'super', 'y' ),
-				'desc' => esc_html__( 'Redo', 'et_builder' ),
-				'on' => array(
-					'fb',
-					'bb',
-				),
-			),
-			'save' => array(
-				'kbd'  => array( 'super', 's' ),
-				'desc' => esc_html__( 'Save Page', 'et_builder' ),
-				'on' => array(
-					'fb',
-					'bb',
-				),
-			),
-			'save_as_draft' => array(
-				'kbd'  => array( 'super', 'shift' , 's'),
-				'desc' => esc_html__( 'Save Page As Draft', 'et_builder' ),
-				'on' => array(
-					'fb',
-					'bb',
-				),
-			),
-			'exit' => array(
-				'kbd'  => array( 'super', 'e' ),
-				'desc' => esc_html__( 'Exit Visual Builder', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'exit_to_backend_builder' => array(
-				'kbd'  => array( 'super', 'shift', 'e' ),
-				'desc' => esc_html__( 'Exit To Backend Builder', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'toggle_settings_bar' => array(
-				'kbd'  => array( 't' ),
-				'desc' => esc_html__( 'Toggle Settings Bar', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'open_page_settings' => array(
-				'kbd'  => array( 'o' ),
-				'desc' => esc_html__( 'Open Page Settings', 'et_builder' ),
-				'on' => array(
-					'fb',
-					'bb',
-				),
-			),
-			'open_history' => array(
-				'kbd'  => array( 'h' ),
-				'desc' => esc_html__( 'Open History Window', 'et_builder' ),
-				'on' => array(
-					'fb',
-					'bb',
-				),
-			),
-			'open_portability' => array(
-				'kbd'  => array( 'p' ),
-				'desc' => esc_html__( 'Open Portability Window', 'et_builder' ),
-				'on' => array(
-					'fb',
-					'bb',
-				),
-			),
-			'zoom_in' => array(
-				'kbd'  => array( 'super', '+' ),
-				'desc' => esc_html__( 'Responsive Zoom In', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'zoom_out' => array(
-				'kbd'  => array( 'super', '-' ),
-				'desc' => esc_html__( 'Responsive Zoom Out', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'help' => array(
-				'kbd'  => array( '?' ),
-				'desc' => esc_html__( 'List All Shortcuts', 'et_builder' ),
-				'on' => array(
-					'fb',
-					'bb',
-				),
-			),
-		),
-		'inline' => array(
-			'inline_title' => array(
-				'title' => esc_html__( 'Inline Editor Shortcuts', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'escape' => array(
-				'kbd'  => array( 'esc' ),
-				'desc' => esc_html__( 'Exit Inline Editor', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-		),
-		'module' => array(
-			'module_title' => array(
-				'title' => esc_html__( 'Module Shortcuts', 'et_builder' ),
-				'on' => array(
-					'fb',
-					'bb',
-				),
-			),
-			'module_copy' => array(
-				'kbd'  => array( 'super', 'c' ),
-				'desc' => esc_html__( 'Copy Module', 'et_builder' ),
-				'on' => array(
-					'fb',
-					'bb',
-				),
-			),
-			'module_cut' => array(
-				'kbd'  => array( 'super', 'x' ),
-				'desc' => esc_html__( 'Cut Module', 'et_builder' ),
-				'on' => array(
-					'fb',
-					'bb',
-				),
-			),
-			'module_paste' => array(
-				'kbd'  => array( 'super', 'v' ),
-				'desc' => esc_html__( 'Paste Module', 'et_builder' ),
-				'on' => array(
-					'fb',
-					'bb',
-				),
-			),
-			'module_copy_styles' => array(
-				'kbd'  => array( 'super', 'alt', 'c' ),
-				'desc' => esc_html__( 'Copy Module Styles', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'module_paste_styles' => array(
-				'kbd'  => array( 'super', 'alt', 'v' ),
-				'desc' => esc_html__( 'Paste Module Styles', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'module_lock' => array(
-				'kbd'  => array( 'l' ),
-				'desc' => esc_html__( 'Lock Module', 'et_builder' ),
-				'on' => array(
-					'fb',
-					'bb',
-				),
-			),
-			'module_disable' => array(
-				'kbd'  => array( 'd' ),
-				'desc' => esc_html__( 'Disable Module', 'et_builder' ),
-				'on' => array(
-					'fb',
-					'bb',
-				),
-			),
-			'drag_auto_copy' => array(
-				'kbd'  => array( 'alt', 'module move' ),
-				'desc' => esc_html__( 'Move and copy module into dropped location', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'column_change_structure' => array(
-				'kbd'  => array( 'c', array( '1', '2', '3', '4', '5', '...' ) ),
-				'desc' => esc_html__( 'Change Column Structure', 'et_builder' ),
-				'on' => array(
-					'fb',
-					'bb',
-				),
-			),
-			'row_make_fullwidth' => array(
-				'kbd'  => array( 'r', 'f' ),
-				'desc' => esc_html__( 'Make Row Fullwidth', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'row_edit_gutter' => array(
-				'kbd'  => array( 'g', array( '1', '2', '3', '4' ) ),
-				'desc' => esc_html__( 'Change Gutter Width', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'add_new_row' => array(
-				'kbd'  => array( 'r', array( '1', '2', '3', '4', '5', '...') ),
-				'desc' => esc_html__( 'Add New Row', 'et_builder' ),
-				'on' => array(
-					'fb',
-					'bb',
-				),
-			),
-			'add_new_section' => array(
-				'kbd'  => array( 's', array( '1', '2', '3' ) ),
-				'desc' => esc_html__( 'Add New Section', 'et_builder' ),
-				'on' => array(
-					'fb',
-					'bb',
-				),
-			),
-			'resize_padding_auto_opposite' => array(
-				'kbd'  => array( 'shift', 'Drag Padding' ),
-				'desc' => esc_html__( 'Restrict padding to 10px increments', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'resize_padding_limited' => array(
-				'kbd'  => array( 'alt', 'Drag Padding' ),
-				'desc' => esc_html__( 'Padding limited to opposing value', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'resize_padding_10' => array(
-				'kbd'  => array( 'shift', 'alt', 'Drag Padding' ),
-				'desc' => esc_html__( 'Mirror padding on both sides', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'increase_padding_row' => array(
-				'kbd'  => array( 'r', array( 'left', 'right', 'up', 'down' ) ),
-				'desc' => esc_html__( 'Increase Row Padding', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'decrease_padding_row' => array(
-				'kbd'  => array( 'r', 'alt', array( 'left', 'right', 'up', 'down' ) ),
-				'desc' => esc_html__( 'Decrease Row Padding', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'increase_padding_section' => array(
-				'kbd'  => array( 's', array( 'left', 'right', 'up', 'down' ) ),
-				'desc' => esc_html__( 'Increase Section Padding', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'decrease_padding_section' => array(
-				'kbd'  => array( 's', 'alt', array( 'left', 'right', 'up', 'down' ) ),
-				'desc' => esc_html__( 'Decrease Section Padding', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'increase_padding_row_10' => array(
-				'kbd'  => array( 'r', 'shift', array( 'left', 'right', 'up', 'down' ) ),
-				'desc' => esc_html__( 'Increase Row Padding By 10px', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'decrease_padding_row_10' => array(
-				'kbd'  => array( 'r', 'alt', 'shift', array( 'left', 'right', 'up', 'down' ) ),
-				'desc' => esc_html__( 'Decrease Row Padding By 10px', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'increase_padding_section_10' => array(
-				'kbd'  => array( 's', 'shift', array( 'left', 'right', 'up', 'down' ) ),
-				'desc' => esc_html__( 'Increase Section Padding By 10px', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'decrease_padding_section_10' => array(
-				'kbd'  => array( 's', 'alt', 'shift', array( 'left', 'right', 'up', 'down' ) ),
-				'desc' => esc_html__( 'Decrease Section Padding By 10px', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-		),
-		'modal' => array(
-			'modal_title' => array(
-				'title' => esc_html__( 'Modal Shortcuts', 'et_builder' ),
-				'on' => array(
-					'fb',
-					'bb',
-				),
-			),
-			'escape' => array(
-				'kbd'  => array( 'esc' ),
-				'desc' => esc_html__( 'Close Modal', 'et_builder' ),
-				'on' => array(
-					'fb',
-					'bb',
-				),
-			),
-			'save_changes' => array(
-				'kbd'  => array( 'enter' ),
-				'desc' => esc_html__( 'Save Changes', 'et_builder' ),
-				'on' => array(
-					'fb',
-					'bb',
-				),
-			),
-			'undo' => array(
-				'kbd'  => array( 'super', 'z' ),
-				'desc' => esc_html__( 'Undo', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'redo' => array(
-				'kbd'  => array( 'super', 'shift', 'z' ),
-				'desc' => esc_html__( 'Redo', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'switch_tabs' => array(
-				'kbd'  => array( 'shift', 'tab' ),
-				'desc' => esc_html__( 'Switch Tabs', 'et_builder' ),
-				'on' => array(
-					'fb',
-					'bb',
-				),
-			),
-			'toggle_expand' => array(
-				'kbd'  => array( 'super', 'enter' ),
-				'desc' => esc_html__( 'Expand Modal Fullscreen', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-			'toggle_snap' => array(
-				'kbd'  => array( 'super', array( 'left', 'right' ) ),
-				'desc' => esc_html__( 'Snap Modal Left / Right', 'et_builder' ),
-				'on' => array(
-					'fb',
-				),
-			),
-		),
-	) );
-
-	// Filter shortcuts
-	$filtered_shortcuts = array();
-
-	foreach ($shortcuts as $group_key => $group) {
-		foreach ($group as $shortcut_key => $shortcut) {
-			if ( in_array( $on, $shortcut['on'] ) ) {
-				$filtered_shortcuts[ $group_key ][ $shortcut_key ] = $shortcut;
-			}
-		}
-	}
-
-	return $filtered_shortcuts;
-}
-endif;
-
-/**
- * Get unit of given value
- * @param string string with unit
- * @return string unit name
- */
-if ( ! function_exists( 'et_pb_get_value_unit' ) ) :
-function et_pb_get_value_unit( $value ) {
-	$value                 = isset( $value ) ? $value : '';
-	$valid_one_char_units  = array( "%" );
-	$valid_two_chars_units = array( "em", "px", "cm", "mm", "in", "pt", "pc", "ex", "vh", "vw" );
-	$important             = "!important";
-	$important_length      = strlen( $important );
-	$value_length          = strlen( $value );
-
-	if ( $value === '' || is_numeric( $value ) ) {
-		return 'px';
-	}
-
-	if ( substr( $value, ( 0 - $important_length ), $important_length ) === $important ) {
-		$value_length = $value_length - $important_length;
-		$value = substr( $value, 0, $value_length ).trim();
-	}
-
-	if ( in_array( substr( $value, -1, 1 ), $valid_one_char_units ) ) {
-		return '%';
-	}
-
-	if ( in_array( substr( $value, -2, 2 ), $valid_two_chars_units ) ) {
-		return substr( $value, -2, 2 );
-	}
-
-	return 'px';
-}
-endif;

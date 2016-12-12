@@ -1,12 +1,25 @@
-@import 'https://fonts.googleapis.com/css?family=Advent+Pro:400,600';
-@import 'https://fonts.googleapis.com/css?family=Montserrat:700';
+@import 'https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet';
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet';
 
 @font-face {
-    font-family: 'Montserrat Light';
-    src: url('fonts/montserrat-light-webfont.woff2') format('woff2'),
-         url('fonts/montserrat-light-webfont.woff') format('woff');
+    font-family: 'GlacialIndifference';
+    src: url('fonts/GlacialIndifference-Regular') format('otf');
     font-weight: normal;
     font-style: normal;
+}
+
+@font-face {
+    font-family: 'GlacialIndifference';
+    src: url('fonts/GlacialIndifference-Bold') format('otf');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GlacialIndifference';
+    src: url('fonts/GlacialIndifference-Italic') format('otf');
+    font-weight: normal;
+    font-style: italic;
 }
 
 @import "font-awesome/font-awesome";

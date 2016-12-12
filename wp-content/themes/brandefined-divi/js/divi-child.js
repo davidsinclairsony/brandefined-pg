@@ -12,16 +12,6 @@ var is_element = function(elem, callBack) {
 
 jQuery(function($) {
 	$(document).ready(function(){
-		// Brandefined Logo Animation
-		is_element('.brandefined-logo-container', function(){
-			var $logo = $('.brandefined-logo-container');
-			$logo.on('mouseover', function() {
-				$('.brandefined-logo span').addClass('show');
-			});
-			$logo.on('mouseout', function() {
-				$('.brandefined-logo span').removeClass('show');
-			});
-		});
 
 		function setup_collapsible_submenus() {
 	        var $menu = $('#mobile_menu'),

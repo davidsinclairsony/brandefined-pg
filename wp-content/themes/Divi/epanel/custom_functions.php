@@ -291,10 +291,7 @@ if ( ! function_exists( 'et_first_image' ) ) {
 	function et_first_image() {
 		global $post;
 		$img = '';
-		// apply the_content filter to execute all shortcodes and get the correct image from the processed content
-		$processed_content = apply_filters( 'the_content', $post->post_content );
-
-		$output = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $processed_content, $matches );
+		$output = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches );
 		if ( isset( $matches[1][0] ) ) $img = $matches[1][0];
 
 		return trim( $img );

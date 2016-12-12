@@ -60,6 +60,18 @@
 		<div id="top-header">
 			<div class="container clearfix">
 
+            <?php
+				$logo = ( $user_logo = et_get_option( 'divi_logo' ) ) && '' != $user_logo
+					? $user_logo
+					: $template_directory_uri . '/images/logo.png';
+			?>
+				<div class="logo_container">
+					<span class="logo_helper"></span>
+					<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
+						<img src="<?php echo esc_attr( $logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" id="logo" />
+					</a>
+				</div>
+
 			<?php if ( $et_contact_info_defined ) : ?>
 
 				<div id="et-info">
@@ -67,6 +79,7 @@
 					<span id="et-info-phone"><?php echo esc_html( $et_phone_number ); ?></span>
 				<?php endif; ?>
 
+				</div> <!-- #et-info -->
 				<?php if ( '' !== ( $et_email = et_get_option( 'header_email' ) ) ) : ?>
 					<a href="<?php echo esc_attr( 'mailto:' . $et_email ); ?>"><span id="et-info-email"><?php echo esc_html( $et_email ); ?></span></a>
 				<?php endif; ?>
@@ -75,11 +88,13 @@
 				if ( true === $show_header_social_icons ) {
 					get_template_part( 'includes/social_icons', 'header' );
 				} ?>
-				</div> <!-- #et-info -->
-
 			<?php endif; // true === $et_contact_info_defined ?>
 
 				<div id="et-secondary-menu">
+
+                    <div class="login-register">
+                        <a href="#" class="button">Login | Register</a>
+                    </div>
 				<?php
 					if ( ! $et_contact_info_defined && true === $show_header_social_icons ) {
 						get_template_part( 'includes/social_icons', 'header' );
@@ -114,17 +129,6 @@
 
 		<header id="main-header" data-height-onload="<?php echo esc_attr( et_get_option( 'menu_height', '66' ) ); ?>">
 			<div class="container clearfix et_menu_container">
-			<?php
-				$logo = ( $user_logo = et_get_option( 'divi_logo' ) ) && '' != $user_logo
-					? $user_logo
-					: $template_directory_uri . '/images/logo.png';
-			?>
-				<div class="logo_container">
-					<span class="logo_helper"></span>
-					<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-						<img src="<?php echo esc_attr( $logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" id="logo" />
-					</a>
-				</div>
 				<div id="et-top-navigation">
 					<nav id="top-menu-nav">
 					<?php

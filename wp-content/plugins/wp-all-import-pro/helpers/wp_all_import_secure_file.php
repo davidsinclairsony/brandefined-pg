@@ -1,7 +1,7 @@
 <?php
 if ( ! function_exists('wp_all_import_secure_file') ){
 
-	function wp_all_import_secure_file( $targetDir, $importID = false, $remove_dir = false, $generateDir = true ){
+	function wp_all_import_secure_file( $targetDir, $importID = false, $remove_dir = false ){
 
 		$is_secure_import = PMXI_Plugin::getInstance()->getOption('secure');
 
@@ -11,11 +11,11 @@ if ( ! function_exists('wp_all_import_secure_file') ){
 
 			if ( @is_dir($dir) and $remove_dir ) wp_all_import_remove_source($dir . DIRECTORY_SEPARATOR . 'index.php' );
 
-			if ( $generateDir ) @wp_mkdir_p($dir);
+			@wp_mkdir_p($dir);
 
 			if (@is_writable($dir) and @is_dir($dir)){
 				$targetDir = $dir;					
-				if (!@file_exists($dir . DIRECTORY_SEPARATOR . 'index.php') && $generateDir)
+				if (!@file_exists($dir . DIRECTORY_SEPARATOR . 'index.php'))
 				{
 					@touch( $dir . DIRECTORY_SEPARATOR . 'index.php' );
 				}				

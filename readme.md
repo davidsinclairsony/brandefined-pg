@@ -1,4 +1,4 @@
-# brandefined exotic
+# brandefined pg
 wordpress website using docker for development
 
 ## docker start & stop

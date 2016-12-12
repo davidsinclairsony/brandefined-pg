@@ -3,7 +3,7 @@
 Plugin Name: WP All Import - WooCommerce Add-On Pro
 Plugin URI: http://www.wpallimport.com/
 Description: Import to WooCommerce. Adds a section to WP All Import that looks just like WooCommerce. Requires WP All Import.
-Version: 2.1.6
+Version: 2.3.0
 Author: Soflyy
 */
 /**
@@ -24,7 +24,7 @@ define('PMWI_ROOT_URL', rtrim(plugin_dir_url(__FILE__), '/'));
  */
 define('PMWI_PREFIX', 'pmwi_');
 
-define('PMWI_VERSION', '2.1.6');
+define('PMWI_VERSION', '2.3.0');
 
 if ( class_exists('PMWI_Plugin') and PMWI_EDITION == "free"){
 
@@ -32,7 +32,7 @@ if ( class_exists('PMWI_Plugin') and PMWI_EDITION == "free"){
 		
 		?>
 		<div class="error"><p>
-			<?php printf(__('Please de-activate and remove the free version of the WooCommere add-on before activating the paid version.', 'pmwi_plugin'));
+			<?php printf(__('Please de-activate and remove the free version of the WooCommere add-on before activating the paid version.', 'wpai_woocommerce_addon_plugin'));
 			?>
 		</p></div>
 		<?php				
@@ -176,7 +176,7 @@ else {
 		 * @param string $pluginFilePath Plugin main file
 		 */
 		protected function __construct() {
-
+			
 			// create/update required database tables
 
 			// regirster autoloading method
@@ -235,9 +235,28 @@ else {
 
 			// register admin page pre-dispatcher
 			add_action('admin_init', array($this, '__adminInit'));		
-
-
+			add_action('init', array($this, 'init'));
 		}
+
+		public function init()
+		{
+			$this->load_plugin_textdomain();
+		}
+
+		/**
+		 * Load Localisation files.
+		 *
+		 * Note: the first-loaded translation file overrides any following ones if the same translation is present
+		 *
+		 * @access public
+		 * @return void
+		 */
+		public function load_plugin_textdomain() {
+			
+			$locale = apply_filters( 'plugin_locale', get_locale(), 'wpai_woocommerce_addon_plugin' );							
+			
+			load_plugin_textdomain( 'wpai_woocommerce_addon_plugin', false, dirname( plugin_basename( __FILE__ ) ) . "/i18n/languages" );
+		}	
 
 		/**
 		 * pre-dispatching logic for admin page controllers
@@ -360,7 +379,7 @@ else {
 			if ( ! $is_prefix) { // also check file with original letter case
 				$filePathAlt = $className . '.php';
 			}
-			foreach ($is_prefix ? array('models', 'controllers', 'shortcodes', 'classes') : array() as $subdir) {
+			foreach ($is_prefix ? array('models', 'controllers', 'shortcodes', 'classes') : array('libraries') as $subdir) {
 				$path = self::ROOT_DIR . '/' . $subdir . '/' . $filePath;
 				if (is_file($path)) {
 					require $path;
@@ -438,7 +457,9 @@ else {
 				'is_product_downloadable' => 'no',
 				'single_product_downloadable' => '',			
 				'is_product_enabled' => 'yes',
-				'single_product_enabled' => '',			
+				'single_product_enabled' => '',
+				'is_variation_enabled' => 'yes',
+				'single_variation_enabled' => '',			
 				'is_product_featured' => 'no',
 				'single_product_featured' => '',
 				'is_product_visibility' => 'visible',
@@ -486,6 +507,17 @@ else {
 				'is_visible' => array(),
 				'is_taxonomy' => array(),
 				'create_taxonomy_in_not_exists' => array(),
+
+				'is_advanced' => array(),
+				'advanced_in_variations' => array(),
+				'advanced_in_variations_xpath' => array(),
+				'advanced_is_visible' => array(),
+				'advanced_is_visible_xpath' => array(),
+				'advanced_is_taxonomy' => array(),
+				'advanced_is_taxonomy_xpath' => array(),
+				'advanced_is_create_terms' => array(),
+				'advanced_is_create_terms_xpath' => array(),
+
 				'single_product_purchase_note' => '',
 				'single_product_menu_order' => 0,			
 				'is_product_enable_reviews' => 'no',
@@ -535,7 +567,9 @@ else {
 				'multiple_variable_product_tax_class' => 'parent',
 				'single_variable_product_tax_class' => '',
 				'variable_stock_status' => 'instock',
-				'single_variable_stock_status' => '',				
+				'single_variable_stock_status' => '',		
+				'variable_allow_backorders' => 'no',
+				'single_variable_allow_backorders' => '',
 				'is_variable_product_downloadable' => 'no',
 				'single_variable_product_downloadable' => '',
 				'variable_attribute_name' => array(),
@@ -567,6 +601,11 @@ else {
 				'single_variable_product_downloadable_use_parent' => 0,
 				'variable_download_limit_use_parent' => 0,
 				'variable_download_expiry_use_parent' => 0,
+
+				'single_product_variation_description' => '',
+				'variable_description' => '',
+				'variable_description_use_parent' => 0,
+
 				'first_is_parent' => 'yes',
 				'single_product_whosale_price' => '',
 				'variable_whosale_price' => '',
@@ -577,6 +616,7 @@ else {
 				'disable_sku_matching' => 1,
 				'disable_prepare_price' => 1,
 				'prepare_price_to_woo_format' => 0,
+				'convert_decimal_separator' => 1,
 				'grouping_indicator' => 'xpath',				
 				'custom_grouping_indicator_name' => '',
 				'custom_grouping_indicator_value' => '',
@@ -600,7 +640,96 @@ else {
 				'variation_stock' => '',
 				'variation_stock_status' => 'auto',
 				'put_variation_image_to_gallery' => 0,
-				'single_variation_stock_status' => ''
+				'single_variation_stock_status' => '',
+				'pmwi_order' => array(										
+					'status' => 'wc-pending',
+					'status_xpath' => '',
+					'date' => 'now',
+					'billing_source' => 'existing',
+					'billing_source_match_by' => 'username',
+					'billing_source_username' => '',
+					'billing_source_email' => '',
+					'billing_source_id' => '',
+					'billing_source_cf_name' => '',
+					'billing_source_cf_value' => '',
+					'billing_first_name' => '',
+					'billing_last_name' => '',
+					'billing_company' => '',
+					'billing_address_1' => '',
+					'billing_address_2' => '',
+					'billing_city' => '',
+					'billing_postcode' => '',
+					'billing_country' => '',
+					'billing_state' => '',
+					'billing_email' => '',
+					'billing_phone' => '',
+					'shipping_source' => 'copy',
+					'shipping_first_name' => '',
+					'shipping_last_name' => '',
+					'shipping_company' => '',
+					'shipping_address_1' => '',
+					'shipping_address_2' => '',
+					'shipping_city' => '',
+					'shipping_postcode' => '',
+					'shipping_country' => '',
+					'shipping_state' => '',
+					'shipping_email' => '',
+					'shipping_phone' => '',
+					'customer_provided_note' => '',
+					'payment_method' => '',
+					'payment_method_xpath' => '',
+					'transaction_id' => '',
+					'products_repeater_mode' => 'csv',
+					'products_repeater_mode_separator' => '|',
+					'products_repeater_mode_foreach' => '',
+					'products_source' => 'existing',
+					'products' => array(),							
+					'manual_products' => array(),
+					'fees_repeater_mode' => 'csv',
+					'fees_repeater_mode_separator' => '|',
+					'fees_repeater_mode_foreach' => '',		
+					'fees' => array(),
+					'coupons_repeater_mode' => 'csv',
+					'coupons_repeater_mode_separator' => '|',
+					'coupons_repeater_mode_foreach' => '',
+					'coupons' => array(),
+					'shipping_repeater_mode' => 'csv',
+					'shipping_repeater_mode_separator' => '|',
+					'shipping_repeater_mode_foreach' => '',
+					'shipping' => array(),					
+					'taxes_repeater_mode' => 'csv',
+					'taxes_repeater_mode_separator' => '|',
+					'taxes_repeater_mode_foreach' => '',
+					'taxes' => array(),					
+					'order_total_logic' => 'auto',
+					'order_total_xpath' => '',															
+					'order_refund_amount' => '',
+					'order_refund_reason' => '',
+					'order_refund_date' => 'now',
+					'order_refund_issued_source' => 'existing',
+					'order_refund_issued_match_by' => 'username',
+					'order_refund_issued_username' => '',
+					'order_refund_issued_email' => '',
+					'order_refund_issued_cf_name' => '',
+					'order_refund_issued_cf_value' => '',
+					'order_refund_issued_id' => '',
+					'notes_repeater_mode' => 'csv',
+					'notes_repeater_mode_separator' => '|',
+					'notes_repeater_mode_foreach' => '',		
+					'notes' => array(),					
+				),
+				'is_update_billing_details' => 1,
+				'is_update_shipping_details' => 1,
+				'is_update_payment' => 1,
+				'is_update_notes' => 1,					
+				'is_update_products' => 1,
+				'is_update_fees' => 1,
+				'is_update_coupons' => 1,
+				'is_update_shipping' => 1,
+				'is_update_taxes' => 1,
+				'is_update_refunds' => 1,
+				'is_update_total' => 1,
+				'do_not_send_order_notifications' => 1
 			);
 		}	
 	}

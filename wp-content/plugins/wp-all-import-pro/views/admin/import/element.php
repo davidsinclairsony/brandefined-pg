@@ -13,18 +13,7 @@
 		</div>
 	</div>	
 	<div class="clear"></div>	
-	<?php
-	switch (PMXI_Plugin::$session->custom_type){
-		case 'taxonomies':
-			$custom_type = new stdClass();
-			$custom_type->labels = new stdClass();
-			$custom_type->labels->singular_name = __('Taxonomy Term', 'wp_all_import_plugin');
-			break;
-		default:
-			$custom_type = get_post_type_object( PMXI_Plugin::$session->custom_type );
-			break;
-	}
-	?>
+	<?php $custom_type = get_post_type_object( PMXI_Plugin::$session->custom_type ); ?>
 	<div class="wpallimport-content-section wpallimport-console">
 		<div class="ajax-console">
 			<?php if ($this->errors->get_error_codes()): ?>

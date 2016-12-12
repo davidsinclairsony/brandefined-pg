@@ -36,7 +36,7 @@ function et_fb_get_layout_type( $post_id ) {
 }
 
 function et_fb_comments_template() {
-	return ET_BUILDER_DIR . 'comments_template.php';
+	return dirname(__FILE__) . '/comments_template.php';
 }
 
 function et_fb_modify_comments_request( $params ) {
@@ -63,18 +63,6 @@ function et_fb_get_comments_markup() {
 	remove_action( 'pre_get_comments', 'et_fb_modify_comments_request', 1 );
 
 	return $comments_content;
-}
-
-// List of shortcode wrappers that requires adjustment in VB. Plugins which uses fullscreen dimension
-// tend to apply negative positioning which looks inappropriate on VB's shortcode mechanism
-function et_fb_known_shortcode_wrappers() {
-	return apply_filters( 'et_fb_known_shortcode_wrappers', array(
-		'removeLeft' => array(
-			'.fullscreen-container', // revolution slider,
-			'.esg-container-fullscreen-forcer', // essential grid
-			'.ls-wp-fullwidth-helper', // layer slider
-		),
-	) );
 }
 
 function et_fb_backend_helpers() {
@@ -281,7 +269,6 @@ function et_fb_backend_helpers() {
 
 			),
 		),
-		'knownShortcodeWrappers'           => et_fb_known_shortcode_wrappers(),
 	);
 
 	// Internationalization.
@@ -384,8 +371,6 @@ function et_fb_backend_helpers() {
 			'unlock'          => esc_html__( 'Unlock', 'et_builder' ),
 			'copy'            => esc_html__( 'Copy', 'et_builder' ),
 			'paste'           => esc_html__( 'Paste', 'et_builder' ),
-			'copyStyle'       => esc_html__( 'Copy Style', 'et_builder' ),
-			'pasteStyle'      => esc_html__( 'Paste Style', 'et_builder' ),
 			'disable'         => esc_html__( 'Disable', 'et_builder' ),
 			'enable'          => esc_html__( 'Enable', 'et_builder' ),
 			'save'            => esc_html__( 'Save to Library', 'et_builder' ),
@@ -474,7 +459,156 @@ function et_fb_backend_helpers() {
 					'shortcut' => esc_html__( 'Shortcuts', 'et_builder' ),
 				),
 			),
-			'shortcuts' => et_builder_get_shortcuts('fb'),
+			'shortcuts' => array(
+				'page_title' => esc_html__( 'Page Shortcuts', 'et_builder' ),
+				'page' => array(
+					'undo' => array(
+						'kbd'  => array( 'super', 'z' ),
+						'desc' => esc_html__( 'Undo', 'et_builder' ),
+					),
+					'redo' => array(
+						'kbd'  => array( 'super', 'shift', 'z' ),
+						'desc' => esc_html__( 'Redo', 'et_builder' ),
+					),
+					'save' => array(
+						'kbd'  => array( 'super', 's' ),
+						'desc' => esc_html__( 'Save page', 'et_builder' ),
+					),
+					'save_as_draft' => array(
+						'kbd'  => array( 'super', 'shift' , 's'),
+						'desc' => esc_html__( 'Save page as draft', 'et_builder' ),
+					),
+					'toggle_settings_bar' => array(
+						'kbd'  => array( 't' ),
+						'desc' => esc_html__( 'Toggle settings bar', 'et_builder' ),
+					),
+					'exit' => array(
+						'kbd'  => array( 'super', 'e' ),
+						'desc' => esc_html__( 'Exit Visual Builder', 'et_builder' ),
+					),
+					'exit_to_backend_builder' => array(
+						'kbd'  => array( 'super', 'shift', 'e' ),
+						'desc' => esc_html__( 'Exit to Backend Builder', 'et_builder' ),
+					),
+					'zoom_in' => array(
+						'kbd'  => array( '+' ),
+						'desc' => esc_html__( 'Zoom-in to smaller responsive mode', 'et_builder' ),
+					),
+					'zoom_out' => array(
+						'kbd'  => array( 'super', '-' ),
+						'desc' => esc_html__( 'Zoom-out to larger responsive mode', 'et_builder' ),
+					),
+					'open_page_settings' => array(
+						'kbd'  => array( 's' ),
+						'desc' => esc_html__( 'Open page settings', 'et_builder' ),
+					),
+					'open_history' => array(
+						'kbd'  => array( 'h' ),
+						'desc' => esc_html__( 'Open history', 'et_builder' ),
+					),
+					'open_portability' => array(
+						'kbd'  => array( 'p' ),
+						'desc' => esc_html__( 'Open export/import', 'et_builder' ),
+					),
+					'help' => array(
+						'kbd'  => array( '?' ),
+						'desc' => esc_html__( 'List all shortcuts', 'et_builder' ),
+					),
+				),
+				'inline_title' => esc_html__( 'Inline Editor Shortcuts', 'et_builder' ),
+				'inline' => array(
+					'escape' => array(
+						'kbd'  => array( 'esc' ),
+						'desc' => esc_html__( 'Exit inline editor', 'et_builder' ),
+					),
+				),
+				'module_title' => esc_html__( 'Module Shortcuts', 'et_builder' ),
+				'module' => array(
+					'module_lock' => array(
+						'kbd'  => array( 'l' ),
+						'desc' => esc_html__( 'Lock module', 'et_builder' ),
+					),
+					'module_cut' => array(
+						'kbd'  => array( 'super', 'x' ),
+						'desc' => esc_html__( 'Cut module', 'et_builder' ),
+					),
+					'module_copy' => array(
+						'kbd'  => array( 'super', 'c' ),
+						'desc' => esc_html__( 'Copy module', 'et_builder' ),
+					),
+					'module_paste' => array(
+						'kbd'  => array( 'super', 'v' ),
+						'desc' => esc_html__( 'Paste module', 'et_builder' ),
+					),
+					'module_disable' => array(
+						'kbd'  => array( 'd' ),
+						'desc' => esc_html__( 'Disable module', 'et_builder' ),
+					),
+					'resize_padding_auto_opposite' => array(
+						'kbd'  => array( 'shift' ),
+						'desc' => esc_html__( 'Holding this while resizeing padding makes the changes happen in 10px increments', 'et_builder' ),
+					),
+					'resize_padding_10' => array(
+						'kbd'  => array( 'shift', 'alt' ),
+						'desc' => esc_html__( 'Holding these while resizing padding automatically resize the opposite padding of the resized padding', 'et_builder' ),
+					),
+					'drag_auto_copy' => array(
+						'kbd'  => array( 'alt', 'dragging module' ),
+						'desc' => esc_html__( 'Copy module and paste it to the moved location', 'et_builder' ),
+					),
+					'column_change_structure' => array(
+						'kbd'  => array( 'c', array( '1', '2', '3', '4' ) ),
+						'desc' => esc_html__( 'Change column structure', 'et_builder' ),
+					),
+					'row_make_fullwidth' => array(
+						'kbd'  => array( 'r', 'f' ),
+						'desc' => esc_html__( 'Make row fullwidth', 'et_builder' ),
+					),
+					'row_edit_gutter' => array(
+						'kbd'  => array( 'g', array( '1', '2', '3', '4' ) ),
+						'desc' => esc_html__( 'Change gutter width of current row', 'et_builder' ),
+					),
+					'add_new_row' => array(
+						'kbd'  => array( 'r', array( '1', '2', '3', '4' ) ),
+						'desc' => esc_html__( 'Add new row', 'et_builder' ),
+					),
+					'add_new_section' => array(
+						'kbd'  => array( 's', array( '1', '2', '3' ) ),
+						'desc' => esc_html__( 'Add new section. 1 = Regular, 2 = Specialty, 3 = Fullwidth', 'et_builder' ),
+					),
+				),
+				'modal_title' => esc_html__( 'Modal Shortcuts', 'et_builder' ),
+				'modal' => array(
+					'escape' => array(
+						'kbd'  => array( 'esc' ),
+						'desc' => esc_html__( 'Close Modal', 'et_builder' ),
+					),
+					'undo' => array(
+						'kbd'  => array( 'super', 'z' ),
+						'desc' => esc_html__( 'Undo', 'et_builder' ),
+					),
+					'redo' => array(
+						'kbd'  => array( 'super', 'shift', 'z' ),
+						'desc' => esc_html__( 'Redo', 'et_builder' ),
+					),
+					'save_changes' => array(
+						'kbd'  => array( 'enter' ),
+						'desc' => esc_html__( 'Save changes', 'et_builder' ),
+					),
+					'switch_tabs' => array(
+						'kbd'  => array( 'tab' ),
+						'desc' => esc_html__( 'Switch tabs', 'et_builder' ),
+					),
+					'toggle_expand' => array(
+						'kbd'  => array( 'super', 'enter' ),
+						'desc' => esc_html__( 'Toggle modal expand', 'et_builder' ),
+					),
+					'toggle_snap' => array(
+						'kbd'  => array( 'super', 'tab' ),
+						'desc' => esc_html__( 'Toggle modal snap', 'et_builder' ),
+					),
+				),
+			),
 		),
 		'sortable' => array(
 			'has_no_ab_permission'                     => esc_html__( 'You do not have permission to edit the module, row or section in this split test.', 'et_builder' ),
@@ -515,7 +649,7 @@ function et_fb_backend_helpers() {
 				'contractModal' => esc_html__( 'Contract Modal', 'et_builder' ),
 				'resize'        => esc_html__( 'Resize Modal', 'et_builder' ),
 				'snapModal'     => esc_html__( 'Snap to Left', 'et_builder' ),
-				'separateModal' => esc_html__( 'Separate Modal', 'et_builder' ),
+				'separateModal' => esc_html__( 'Seperate Modal', 'et_builder' ),
 				'redo'          => esc_html__( 'Redo', 'et_builder' ),
 				'undo'          => esc_html__( 'Undo', 'et_builder' ),
 				'cancel'        => esc_html__( 'Discard All Changes', 'et_builder' ),

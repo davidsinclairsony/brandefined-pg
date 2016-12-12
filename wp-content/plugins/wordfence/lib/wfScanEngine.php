@@ -130,18 +130,7 @@ class wfScanEngine {
 			$this->recordMetric('scan', 'duration', (time() - $this->startTime));
 			$this->recordMetric('scan', 'memory', wfConfig::get('wfPeakMemory', 0));
 			$this->submitMetrics();
-		}
-		catch (wfScanEngineDurationLimitException $e) {
-			wfConfig::set('lastScanCompleted', $e->getMessage());
-			$this->i->setScanTimeNow();
-			
-			$this->emailNewIssues(true);
-			$this->recordMetric('scan', 'duration', (time() - $this->startTime));
-			$this->recordMetric('scan', 'memory', wfConfig::get('wfPeakMemory', 0));
-			$this->submitMetrics();
-			throw $e;
-		}
-		catch(Exception $e) {
+		} catch(Exception $e){
 			wfConfig::set('lastScanCompleted', $e->getMessage());
 			$this->recordMetric('scan', 'duration', (time() - $this->startTime));
 			$this->recordMetric('scan', 'memory', wfConfig::get('wfPeakMemory', 0));
@@ -150,29 +139,8 @@ class wfScanEngine {
 			throw $e;
 		}
 	}
-	public function checkForDurationLimit() {
-		$timeLimit = intval(wfConfig::get('scan_maxDuration'));
-		if ($timeLimit < 1) {
-			$timeLimit = WORDFENCE_DEFAULT_MAX_SCAN_TIME;
-		}
-		
-		if ((time() - $this->startTime) > $timeLimit){
-			$error = 'The scan time limit of ' . wfUtils::makeDuration($timeLimit) . ' has been exceeded and the scan will be terminated. This limit can be customized on the options page. <a href="http://docs.wordfence.com/en/Scan_time_limit" target="_blank">Get More Information</a>';
-			$this->addIssue('timelimit', 1, md5($this->startTime), md5($this->startTime), 'Scan Time Limit Exceeded', $error, array());
-			$summary = $this->i->getSummaryItems();
-			$this->status(1, 'info', '-------------------');
-			$this->status(1, 'info', "Scan interrupted. Scanned " . $summary['totalFiles'] . " files, " . $summary['totalPlugins'] . " plugins, " . $summary['totalThemes'] . " themes, " . ($summary['totalPages'] + $summary['totalPosts']) . " pages, " . $summary['totalComments'] . " comments and " . $summary['totalRows'] . " records in " . wfUtils::makeDuration(time() - $this->startTime, true) . ".");
-			if($this->i->totalIssues  > 0){
-				$this->status(10, 'info', "SUM_FINAL:Scan interrupted. You have " . $this->i->totalIssues . " new issues to fix. See below.");
-			} else {
-				$this->status(10, 'info', "SUM_FINAL:Scan interrupted. No problems found prior to stopping.");
-			}
-			throw new wfScanEngineDurationLimitException($error);
-		}
-	}
 	public function forkIfNeeded(){
 		self::checkForKill();
-		$this->checkForDurationLimit();
 		if(time() - $this->cycleStartTime > $this->maxExecTime){
 			wordfence::status(4, 'info', "Forking during hash scan to ensure continuity.");
 			$this->fork();
@@ -186,8 +154,8 @@ class wfScanEngine {
 		} //Otherwise there was an error so don't start another scan.
 		exit(0);
 	}
-	public function emailNewIssues($timeLimitReached = false){
-		$this->i->emailNewIssues($timeLimitReached);
+	public function emailNewIssues(){
+		$this->i->emailNewIssues();
 	}
 	public function submitMetrics() {
 		if (wfConfig::get('other_WFNet', true)) {
@@ -493,20 +461,18 @@ class wfScanEngine {
 		if(! is_array($baseContents)){
 			throw new Exception("Wordfence could not read the contents of your base WordPress directory. This usually indicates your permissions are so strict that your web server can't read your WordPress directory.");
 		}
-		
-		$includeInKnownFilesScan = array();
 		$scanOutside = wfConfig::get('other_scanOutside');
-		if ($scanOutside) {
+		if($scanOutside){
 			wordfence::status(2, 'info', "Including files that are outside the WordPress installation in the scan.");
-			$includeInKnownFilesScan[] = ''; //Ends up as a literal ABSPATH
 		}
-		else {
-			foreach ($baseContents as $file) { //Only include base files less than a meg that are files.
-				if($file == '.' || $file == '..'){ continue; }
-				$fullFile = rtrim(ABSPATH, '/') . '/' . $file;
-				if (in_array($file, $baseWPStuff) || (@is_file($fullFile) && @is_readable($fullFile) && (!wfUtils::fileTooBig($fullFile)))) {
-					$includeInKnownFilesScan[] = $file;
-				}
+		$includeInKnownFilesScan = array();
+		foreach($baseContents as $file){ //Only include base files less than a meg that are files.
+			if($file == '.' || $file == '..'){ continue; }
+			$fullFile = rtrim(ABSPATH, '/') . '/' . $file;
+			if($scanOutside){
+				$includeInKnownFilesScan[] = $file;
+			} else if(in_array($file, $baseWPStuff) || (@is_file($fullFile) && @is_readable($fullFile) && (! wfUtils::fileTooBig($fullFile)) ) ){
+				$includeInKnownFilesScan[] = $file;
 			}
 		}
 
@@ -1197,7 +1163,7 @@ class wfScanEngine {
 		return $this->i->addIssue($type, $severity, $ignoreP, $ignoreC, $shortMsg, $longMsg, $templateData);
 	}
 	public static function requestKill(){
-		wfConfig::set('wfKillRequested', time(), wfConfig::DONT_AUTOLOAD);
+		wfConfig::set('wfKillRequested', time());
 	}
 	public static function checkForKill(){
 		$kill = wfConfig::get('wfKillRequested', 0);
@@ -1209,7 +1175,7 @@ class wfScanEngine {
 	public static function startScan($isFork = false){
 		if(! $isFork){ //beginning of scan
 			wfConfig::inc('totalScansRun');	
-			wfConfig::set('wfKillRequested', 0, wfConfig::DONT_AUTOLOAD); 
+			wfConfig::set('wfKillRequested', 0);
 			wordfence::status(4, 'info', "Entering start scan routine");
 			if(wfUtils::isScanRunning()){
 				wfUtils::getScanFileError();
@@ -1655,7 +1621,4 @@ class wfCommonBackupFileTest {
 
 class wfPubliclyAccessibleFileTest extends wfCommonBackupFileTest {
 	
-}
-
-class wfScanEngineDurationLimitException extends Exception {
 }

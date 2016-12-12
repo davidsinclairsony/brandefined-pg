@@ -1,15 +1,4 @@
-<?php
-switch ($post_type){
-	case 'taxonomies':
-		$custom_type = new stdClass();
-		$custom_type->labels = new stdClass();
-		$custom_type->labels->singular_name = __('Taxonomy Term', 'wp_all_import_plugin');
-		break;
-	default:
-		$custom_type = get_post_type_object( $post_type );
-		break;
-}
-?>
+<?php $custom_type = get_post_type_object( $post_type ); ?>
 <div class="wpallimport-collapsed closed wpallimport-section ">
 	<div class="wpallimport-content-section ">
 		<div class="wpallimport-collapsed-header">

@@ -5,7 +5,7 @@ services:
     ports:
       - "8081:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: ChangeMeIfYouWant
+      MYSQL_ROOT_PASSWORD: root
   my-wp:
     image: wordpress
     volumes:
@@ -15,7 +15,7 @@ services:
     links:
       - my-wpdb:mysql
     environment:
-      WORDPRESS_DB_PASSWORD: ChangeMeIfYouWant
+      WORDPRESS_DB_PASSWORD: root
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     ports:

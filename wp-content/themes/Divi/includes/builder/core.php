@@ -2106,24 +2106,6 @@ function et_fb_is_enabled( $post_id = false ) {
 }
 endif;
 
-if ( ! function_exists( 'et_fb_is_retrieving_builder_data' ) ) :
-function et_fb_is_retrieving_builder_data() {
-	if ( ! isset( $_POST['et_fb_helper_nonce'] ) || ! wp_verify_nonce( $_POST['et_fb_helper_nonce'], 'et_fb_backend_helper_nonce' ) ) {
-		return false;
-	}
-
-	if ( ! current_user_can( 'edit_posts' ) ) {
-		return false;
-	}
-
-	if ( isset( $_POST['action'] ) && 'et_fb_retrieve_builder_data' === $_POST['action'] ) {
-		return true;
-	}
-
-	return false;
-}
-endif;
-
 if ( ! function_exists( 'et_fb_auto_activate_builder' ) ) :
 function et_fb_auto_activate_builder() {
 	$post_id = get_the_ID();

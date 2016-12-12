@@ -8,16 +8,21 @@
  Version:        1.2.0
 */
 
-$color-primary: #52338f;
-$color-secondary: #56c3be;
-$color-tertiary: #f9e6a0;
+@import "scss/fonts";
+
+$color-primary: #FF0000;
+$color-secondary: #FFFA25;
+$color-tertiary: #4d4d4d;
+$color-quaternary: #f4f5f7;
 $color-semi-black: #333;
 
-@import "scss/fonts";
-@import "scss/other";
+$font-primary: 'Open Sans', sans-serif;
+$font-secondary: 'GlacialIndifference', sans-serif;
+$font-tertiary: 'Montserrat', sans-serif;
+
+@import "scss/brandefined";
 @import "scss/base";
+@import "scss/other";
+@import "scss/header";
 @import "scss/footer";
 @import "scss/home";
-@import "scss/hair";
-@import "scss/massage";
-@import "scss/contact-us";

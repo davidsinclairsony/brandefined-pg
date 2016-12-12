@@ -1,0 +1,274 @@
+/*
+ Theme Name:     Brandefined Divi Child Theme
+ Theme URI:      http://brandefined.com
+ Description:    A child theme for Div by Brandefined
+ Author:         Brandefined [Erik Schade] [Jino Conklin] [Kenny Scott]
+ Author URI:     http://www.brandefined.com
+ Template:       Divi
+ Version:        1.2.0
+*/
+ 
+
+
+/**********[ CSS @imports ]**********/
+
+
+/**********[ Globals ]**********/
+
+
+/**********[ Home Page ]**********/
+
+
+/**********[ Header & Top Nav ]**********/
+
+
+/**********[ Featurettes Top]**********/
+
+
+/**********[ Slider ]**********/
+
+
+/**********[ Body ]**********/
+
+
+/**********[ Services ]**********/
+
+
+/**********[ Forms ]**********/
+
+
+/**********[ Footer ]**********/
+
+
+/**********[ Social Icons ]**********/ 
+@font-face {
+    font-family: "Brandefined Social Icons";
+    src: url("fonts/bd-social-icons.eot");
+    src: url("fonts/bd-social-icons.eot?#iefix") format("embedded-opentype"),  url("fonts/bd-social-icons.woff") format("woff"),  url("fonts/bd-social-icons.ttf") format("truetype"),  url("fonts/bd-social-icons.svg#bd-social-icons") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+.bd-social-icons { margin-top: 3px; }
+#top-header {
+  position: relative;
+}
+#top-header .bd-social-icons { 
+  margin-top: 0; 
+  float: right;
+}
+.bd-custom-range {
+    width: 66% !important;
+}
+.bd-custom-range-value {
+    width: 30% !important;
+    float: right !important;
+}
+.bd-social-icons li, .bd-social-icons li a { display: inline-block; }
+.bd-social-icons li > a[class*="bd-icon-"]:before { font-family: "Brandefined Social Icons" !important; }
+.bd-social-icons li { margin-bottom: 3px; }
+#top-header .et-social-icons li {
+    margin-left: 0px;
+    margin-bottom: 0px;
+}
+.et-social-icons li { margin-left: 0; }
+[data-bdicon]:before {
+    font-family: "Brandefined Social Icons" !important;
+    content: attr(data-bdicon);
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+[class^="bd-icon-"]:before, [class*=" bd-icon-"]:before {
+    font-family: "Brandefined Social Icons" !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+[class*="bd-icon-"] span { display: none; }
+.bd-icon-facebook:before { content: "\61" }
+.bd-icon-facebook-alt:before { content: "\62" }
+.bd-icon-google-plus:before { content: "\63" }
+.bd-icon-google-plus-alt:before { content: "\64" }
+.bd-icon-twitter:before { content: "\65" }
+.bd-icon-twitter-alt:before { content: "\66" }
+.bd-icon-pinterest:before { content: "\67" }
+.bd-icon-pinterest-alt:before { content: "\68" }
+.bd-icon-youtube:before { content: "\69" }
+.bd-icon-youtube-alt:before { content: "\6a" }
+.bd-icon-linkedin:before { content: "\6b" }
+.bd-icon-linkedin-alt:before { content: "\6c" }
+.bd-icon-instagram-alt:before { content: "\6d" }
+.bd-icon-instagram:before { content: "\6e" }
+.bd-icon-tumblr:before { content: "\6f" }
+.bd-icon-snapchat:before { content: "\70" }
+.bd-icon-yelp:before { content: "\71" }
+.bd-icon-yahoo:before { content: "\72" }
+.bd-icon-vimeo:before { content: "\73" }
+.bd-icon-etsy:before { content: "\74" }
+.bd-icon-paypal:before { content: "\75" }
+.bd-icon-periscope:before { content: "\76" }
+.bd-icon-picasa:before { content: "\77" }
+.bd-icon-soundcloud:before { content: "\78" }
+.bd-icon-squarespace:before { content: "\79" }
+.bd-icon-ebay:before { content: "\7a" }
+.bd-icon-artsy:before { content: "\41" }
+.bd-icon-skype:before { content: "\42" }
+.bd-icon-flickr:before { content: "\43" }
+.bd-icon-myspace:before { content: "\44" }
+.bd-icon-dribbble:before { content: "\45" }
+.bd-icon-rss:before { content: "\46" }
+.bd-icon-rss-alt:before { content: "\47" }
+.bd-icon-wordpress:before { content: "\48" }
+.bd-icon-wordpress-alt:before { content: "\49" }
+
+/**********[ Flex Grid ]**********/ 
+/* i'm too flexy for my grid */
+.bd-flex-grid {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+.bd-flex-grid [class*='bd-flex-col'] {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+.bd-flex-col-1-2 {
+    -webkit-flex-basis: 49%;
+    -ms-flex-preferred-size: 49%;
+    flex-basis: 49%;
+    max-width: 49%;
+}
+.bd-flex-col-1-3 {
+    -webkit-flex-basis: 32%;
+    -ms-flex-preferred-size: 32%;
+    flex-basis: 32%;
+    max-width: 32%;
+}
+.bd-flex-col-2-3 {
+    -webkit-flex-basis: 65%;
+    -ms-flex-preferred-size: 65%;
+    flex-basis: 65%;
+    max-width: 65%;
+}
+.bd-flex-col-1-4 {
+    -webkit-flex-basis: 24%;
+    -ms-flex-preferred-size: 24%;
+    flex-basis: 24%;
+    max-width: 24%;
+}
+.bd-flex-col-1-5 {
+    -webkit-flex-basis: 19%;
+    -ms-flex-preferred-size: 19%;
+    flex-basis: 19%;
+    max-width: 19%;
+}
+.bd-flex-col-1-6 {
+    -webkit-flex-basis: 15%;
+    -ms-flex-preferred-size: 15%;
+    flex-basis: 15%;
+    max-width: 15%;
+}
+.bd-flex-col-1-7 {
+    -webkit-flex-basis: 13%;
+    -ms-flex-preferred-size: 13%;
+    flex-basis: 13%;
+    max-width: 13%;
+}
+/**********[ Media Queries ]**********/
+
+/* mobile */
+@media (max-width: 980px) {
+  .container.et_menu_container { width: calc( 100% - 60px); }
+  .et_mobile_menu {
+      margin-left: -30px;
+      padding: 5%;
+      width: calc( 100% + 60px);
+  }
+  /** collapse submenus on mobile */
+  #main-header .et_mobile_menu .menu-item-has-children > a {
+      background-color: transparent;
+      position: relative;
+  }
+  #main-header .et_mobile_menu .menu-item-has-children > a:after {
+      font-family: 'ETmodules';
+      text-align: center;
+      speak: none;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      -webkit-font-smoothing: antialiased;
+      position: absolute;
+  }
+  #main-header .et_mobile_menu .menu-item-has-children > a:after {
+      font-size: 16px;
+      content: '\4c';
+      top: 13px;
+      right: 10px;
+  }
+  #main-header .et_mobile_menu .menu-item-has-children.visible > a:after { content: '\4d'; }
+  #main-header .et_mobile_menu ul.sub-menu {
+      display: none !important;
+      visibility: hidden !important;
+      -webkit-transition: all 1.5s ease-in-out;
+      transition: all 1.5s ease-in-out;
+  }
+  #main-header .et_mobile_menu .visible > ul.sub-menu {
+      display: block !important;
+      visibility: visible !important;
+  }
+  
+  /* Todo: use jquery to replace using animation */ 
+  .mobile_nav.opened .mobile_menu_bar:before { content: "\4d"; }
+  
+  /* lines below fix responsive issues in blurb modules */
+  .et_pb_blurb_content { max-width: 100%; }
+  .et_pb_blurb .et_pb_main_blurb_image img { width: 100%; }
+
+  .bd-flex-grid [class*="bd-flex-col"] {
+      -webkit-flex-basis: 33%;
+      -ms-flex-preferred-size: 33%;
+      flex-basis: 33%;
+      max-width: 33%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+.bd-flex-grid [class*="bd-flex-col"] {
+    -webkit-flex-basis: 50%;
+    -ms-flex-preferred-size: 50%;
+    flex-basis: 50%;
+    max-width: 50%;
+}
+}
+
+@media only screen and (max-width: 700px) {
+.bd-flex-grid { margin-left: 0; }
+.bd-flex-grid [class*="bd-flex-col"] {
+    -webkit-flex-basis: auto;
+    -ms-flex-preferred-size: auto;
+    flex-basis: auto;
+}
+}
+
+

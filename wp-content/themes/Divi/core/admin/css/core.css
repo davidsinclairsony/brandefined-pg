@@ -263,7 +263,7 @@ body button.et-core-button {
 	display: block;
 }
 
-.et-core-modal .et-core-modal-title {
+.et-core-modal-title {
 	font-weight: 300;
 	font-size: 22px;
 	line-height: 27px;
@@ -271,15 +271,6 @@ body button.et-core-button {
 	margin: 0px;
 	padding: 0;
 	text-transform: none;
-	text-decoration: none;
-	font-style: normal;
-	font-family: 'Open Sans', Helvetica, Roboto, Arial, sans-serif;
-	letter-spacing: 0;
-	font-weight: 600;
-}
-
-.et_pb_pagebuilder_layout .et-core-modal .et-core-modal-title {
-	font-weight: 500;
 }
 
 .et-core-modal-close {

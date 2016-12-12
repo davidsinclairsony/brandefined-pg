@@ -1,59 +1,15 @@
 <?php
-
-include 'brandefined-security.php';
 /** Make it easier to access the child theme directory */
 define('FS_METHOD', 'direct');
 define("CHILD_THEME_DIR", dirname( get_bloginfo('stylesheet_url')) );
 
+include 'brandefined-security.php';
+include('bd_customizer.inc.php');
+
+
 /** Enable shortcodes in text widgets */
 add_filter('widget_text', 'do_shortcode');
 
-/** Begin "Custom CSS" Theme Customizer Addition */
-function brandefined_customizer($wp_customize)
-{
-    $wp_customize->add_setting('brandefined_custom_css', array(
-        'type'                 => 'theme_mod',
-        'capability'           => 'edit_theme_options',
-        'theme_supports'       => '',
-        'default'              => '',
-        'transport'            => 'postMessage',
-        'sanitize_callback'    => '',
-        'sanitize_js_callback' => ''
-    ));
-    $wp_customize->add_section('custom_css', array(
-        'title'          => __('Custom CSS'),
-        'description'    => __('Add custom CSS here'),
-        'panel'          => '',
-        'priority'       => 160,
-        'capability'     => 'edit_theme_options',
-        'theme_supports' => ''
-    ));
-    $wp_customize->add_control('custom_theme_css', array(
-        'label' => __('Custom Theme CSS'),
-        'type' => 'textarea',
-        'section' => 'custom_css',
-        'settings' => 'brandefined_custom_css'
-    ));
-}
-add_action('customize_register', 'brandefined_customizer');
-
-function brandefined_customizer_scripts()
-{
-    wp_register_script('brandefined-customizer-scripts', CHILD_THEME_DIR . '/js/brandefined_customizer.js', array(
-        'jquery'
-    ), '', true);
-    wp_enqueue_script('brandefined-customizer-scripts', CHILD_THEME_DIR . '/js/brandefined_customizer.js', array(
-        'jquery'
-    ), '', true);
-}
-add_action('customize_preview_init', 'brandefined_customizer_scripts');
-
-function brandefined_custom_css_output()
-{
-    echo '<style type="text/css" id="brandefined-custom-css">' . get_theme_mod('brandefined_custom_css', '') . '</style>';
-}
-add_action('wp_head', 'brandefined_custom_css_output');
-/** END "Custom CSS" Theme Customizer Addition */
 
 /** Add Quick Link to WP Media Library on Admin Toolbar */
 function media_library_link($wp_admin_bar)
@@ -63,7 +19,8 @@ function media_library_link($wp_admin_bar)
         'title' => 'Media Library',
         'href' => admin_url('upload.php'),
         'meta' => array(
-            'class' => 'media-library-access-link'
+            'class' => 'media-library-access-link',
+            'target' => '_blank'
         )
     );
     $wp_admin_bar->add_node($args);
@@ -77,7 +34,32 @@ function bd_allow_svg($mimes) {
 }
 add_filter('upload_mimes', 'bd_allow_svg');
 
+function bd_flex_grid_wrapper_shortcode( $atts, $content = "" ) 
+{
+    $atts = shortcode_atts( array(
+        'class' => '',
+    ), $atts, 'flex_grid' );
 
+    $output = '<div class="bd-flex-grid '.$atts['class'].'">';
+    $output .= do_shortcode( shortcode_unautop( $content ) );
+    $output .= '</div>';
+    return $output;
+}
+add_shortcode( 'flex_grid', 'bd_flex_grid_wrapper_shortcode' );
+
+function bd_flex_grid_col_shortcode( $atts, $content = "" ) 
+{
+    $atts = shortcode_atts( array(
+        'size' => '1-6',
+        'class' => 'bd-flex-col',
+    ), $atts, 'flex_col' );
+    
+    $output = '<div class="bd-flex-col-'.$atts['size'] . '">';
+    $output .= do_shortcode( shortcode_unautop( $content ) );
+    $output .= '</div>';
+    return $output;
+}
+add_shortcode( 'flex_col', 'bd_flex_grid_col_shortcode' );
 
 
 // Removes  Divi's "Projects" Custom Post Type
@@ -104,11 +86,6 @@ function yoursite_pre_user_query($user_search) {
       "WHERE 1=1 AND {$wpdb->users}.user_login != '$admin_user'",$user_search->query_where);
   }
 }
-function custom_scripts() {
-        wp_enqueue_script( 'jqeury', get_stylesheet_directory_uri() . '/js/lib/jquery.local.min.js', array('jquery'), '2.0.0', true );
-    }
-
-    add_action( 'wp_enqueue_scripts', 'custom_scripts' );
 
 function bd_login_screen() { ?>
     <style type="text/css">
@@ -155,3 +132,4 @@ function bd_login_screen() { ?>
 add_action( 'login_enqueue_scripts', 'bd_login_screen' );
 
 
+?>
