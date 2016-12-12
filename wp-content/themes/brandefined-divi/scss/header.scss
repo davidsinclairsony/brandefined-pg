@@ -33,7 +33,7 @@
           top: 22px;
           right: 55px;
 
-          .button {
+          a {
             font-size: 13px;
             height: auto;
             border-radius: 2em;
@@ -79,6 +79,7 @@
 
         .login-register {
           margin-right: 30px;
+          letter-spacing: 2px;
         }
 
         ul.et-social-icons {
@@ -141,7 +142,7 @@ header#main-header {
             line-height: 1em;
 
             > a {
-              padding: 12px 30px;
+              padding: 10px 30px 9px 30px;
               color: white;
               display: block;
               height: 100%;
@@ -165,6 +166,7 @@ header#main-header {
                 &:after {
                   position: relative;
                   margin-left: 2px;
+                  vertical-align: top;
                 }
               }
             }
@@ -172,6 +174,7 @@ header#main-header {
             ul.sub-menu {
               padding: 0;
               width: auto;
+              border-top-width: 4px;
 
               li {
                 padding: 0;

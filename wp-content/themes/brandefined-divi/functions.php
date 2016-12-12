@@ -13,3 +13,20 @@ include_once("includes/divi-child.php");
 
 // Put custom functions that will only be used on this project here
 
+// menus using shortcodes
+function print_menu_shortcode($atts, $content = null) {
+    extract(shortcode_atts(array( 'name' => null, ), $atts));
+    return wp_nav_menu( array( 'menu' => $name, 'echo' => false ) );
+}
+add_shortcode('menu', 'print_menu_shortcode');
+
+// news section for home
+function home_news($atts) {
+    ob_start();
+    get_template_part('news-shortcode', 'shortcode');
+    $ret = ob_get_contents();
+    ob_end_clean();
+    return $ret;
+}
+
+add_shortcode('home_news', 'home_news');

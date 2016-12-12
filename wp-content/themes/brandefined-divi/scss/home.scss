@@ -12,4 +12,198 @@ body.home {
       }
     }
   }
+
+  .home-free-fitness-updates {
+    position: absolute;
+    color: white;
+    max-width: 540px;
+    top: 100px;
+    left: 50%;
+    margin-left: -1px * (1005 / 2);
+
+    .validation_error {
+      display: none;
+    }
+
+
+    ul.gform_fields {
+      margin-top: 86px !important;
+      padding: 41px 30px 0 30px;
+      background: transparentize(white, .66);
+
+      li {
+        margin-top: 0;
+
+        /* header */
+        &:nth-child(1) {
+          position: absolute;
+          top: 23px;
+          left: 0;
+          border-bottom: 4px solid white;
+          width: 100%;
+
+          h2 {
+            font-family: $font-secondary;
+            font-size: 58px;
+            color: white;
+            padding-bottom: 0;
+            margin-bottom: -10px;
+          }
+        }
+
+        &.gfield_contains_required {
+          display: inline-block;
+          vertical-align: top;
+
+          input {
+            width: 100%;
+            background: none;
+            border: none !important;
+            border-bottom: 1px solid white !important;
+            color: white;
+          }
+
+          ::placeholder {
+             color: white;
+             font-style: italic;
+          }
+        }
+
+        &.gfield_error {
+          background: none;
+          border: none;
+          width: auto;
+
+          input {
+            border: none;
+            border-bottom: 1px solid $color-primary !important;
+          }
+
+          .gfield_description {
+            display: none;
+          }
+        }
+
+        p {
+          font-size: 24px;
+          margin-bottom: 20px;
+        }
+
+        small {
+          margin-top: 20px;
+          display: block;
+          font-size: 14px;
+        }
+
+        label {
+          display: none !important;
+        }
+
+        .ginput_container {
+          margin-top: 0 !important;
+        }
+      }
+    }
+
+    .gform_footer {
+      margin-top: 0;
+      padding: 20px 30px 25px 30px;
+      background: transparentize(white, .66);
+
+      .button {
+        transition: all 0.4s ease-in-out;
+        font-family: $font-secondary;
+        font-weight: bold;
+        text-transform: lowercase;
+        font-size: 28px;
+        height: auto;
+        border-radius: 0;
+        border: 4px solid white;
+        color: white;
+        background: $color-primary;
+        padding: 10px 20px 15px 20px;
+        margin: 0;
+        cursor: pointer;
+        width: auto;
+        line-height: inherit !important;
+        min-height: 0 !important;
+
+        &:hover {
+          background: darken($color-primary, 5%);
+        }
+      }
+    }
+  }
+
+  .welcome-to-pgfit {
+    max-width: 800px;
+    margin: 0 auto;
+
+    h1 {
+      font-family: $font-tertiary;
+      color: black;
+      font-size: 26px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+
+      img {
+        height: 80px;
+        vertical-align: middle;
+        margin-left: 15px;
+        position: relative;
+        top: -5px;
+      }
+    }
+
+    p {
+      font-size: 22px;
+    }
+  }
+
+  .about-us {
+    p {
+      font-size: 20px;
+    }
+
+    .arrow-button {
+      font-family: $font-tertiary;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+
+      &:after {
+        content: "►";
+        margin-left: 10px;
+
+      }
+
+      &:hover {
+        color: darken(white, 10%);
+      }
+    }
+  }
+
+  .news-section {
+    h2 {
+      font-family: $font-secondary;
+      font-size: 52px;
+      font-weight: bold;
+      color: black;
+    }
+
+    .round-button {
+      background: black;
+      color: white;
+      border: none;
+      height: auto;
+
+      &:hover {
+        background: lighten(black, 15%);
+      }
+    }
+  }
 }

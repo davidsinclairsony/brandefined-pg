@@ -93,7 +93,7 @@
 				<div id="et-secondary-menu">
 
                     <div class="login-register">
-                        <a href="#" class="button">Login | Register</a>
+                        <a href="#" class="round-button">Login | Register</a>
                     </div>
 				<?php
 					if ( ! $et_contact_info_defined && true === $show_header_social_icons ) {
