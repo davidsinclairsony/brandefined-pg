@@ -93,7 +93,7 @@
 				<div id="et-secondary-menu">
 
                     <div class="login-register">
-                        <a href="#" class="round-button">Login | Register</a>
+                        <a href="#" class="round-button"><strong>Login</strong> | <strong>Register</strong></a>
                     </div>
 				<?php
 					if ( ! $et_contact_info_defined && true === $show_header_social_icons ) {
@@ -186,6 +186,10 @@
 					<span class="et_close_search_field"></span>
 				</div>
 			</div>
+			
+			<div class="login-register">
+                <a href="#"><strong>Login</strong> | <strong>Register</strong></a>
+            </div>
 		</header> <!-- #main-header -->
 
 		<div id="et-main-area">

@@ -5,6 +5,11 @@
     a {
       color: black;
       border-color: black;
+      font-weight: normal;
+      
+      strong {
+        font-weight: 900;
+      }
 
       &:hover {
         border-color: $color-primary;
@@ -13,7 +18,13 @@
       }
     }
   }
-
+  
+  @media (max-width: 767px) {
+    .login-register {
+      display: none;
+    }
+  }
+  
   @media (max-width: 980px) {
     width: 100%;
 
@@ -21,8 +32,9 @@
       width: calc( 100% - 40px);
 
       .logo_container {
-        height: 80px;
+        height: 220px;
         width: auto;
+        top: -70px;
       }
 
       #et-secondary-menu {
@@ -31,7 +43,7 @@
         .login-register {
           position: absolute;
           top: 22px;
-          right: 55px;
+          right: 80px;
 
           a {
             font-size: 13px;
@@ -79,7 +91,6 @@
 
         .login-register {
           margin-right: 30px;
-          letter-spacing: 2px;
         }
 
         ul.et-social-icons {
@@ -105,7 +116,51 @@
   }
 }
 
+.mobile_menu_bar {
+  padding-bottom: 5px !important;
+  top: -8px;
+  
+  &:before {
+    font-size: 48px;
+  }
+}
+
 header#main-header {
+  box-shadow: none;
+  
+  @media (min-width: 768px) {
+    .login-register {
+      display: none;
+    }
+  }
+  
+  .login-register {
+    a {
+      color: white;
+      transition: all 0.4s ease-in-out;
+      font-family: $font-tertiary;
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: 16px;
+      padding: 10px 30px;
+      cursor: pointer;
+      letter-spacing: 2px;
+      display: block;
+      width: 100%;
+      background: black;
+      text-align: center;
+      font-weight: normal;
+      
+      strong {
+        font-weight: 900;
+      }
+
+      &:hover {
+        background: lighten(black, 15%);
+      }
+    }
+  }
+  
   @media (max-width: 980px) {
     background: white !important;
 
@@ -118,7 +173,7 @@ header#main-header {
   }
 
   @media (min-width: 981px) {
-    border-bottom: 4px solid white;
+    border-bottom: 3px solid white;
 
     #et-top-navigation {
       float: none;
@@ -142,13 +197,14 @@ header#main-header {
             line-height: 1em;
 
             > a {
-              padding: 10px 30px 9px 30px;
+              padding: 10px 15px 9px 15px;
               color: white;
               display: block;
               height: 100%;
 
               &:hover {
-                color: $color-primary;
+                background: $color-primary;
+                opacity: 1;
               }
             }
 
