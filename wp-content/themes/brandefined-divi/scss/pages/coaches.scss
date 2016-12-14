@@ -1,17 +1,79 @@
-body.coaches {
-    .et_pb_row:not(.header-row) {
+body.page-id-132 {
+    /* entire background section */
+    .et_pb_with_background {
+        @media (max-width: 767px) {
+            padding-bottom: 20px;
+        }
+    }
+    
+    .side-padding {
         background: white;
-        padding: 2%;
+        padding-left: 3%;
+        padding-right: 3%;
+
+        @media (max-width: 767px) {
+            width: 90%;
+            padding-left: 5%;
+            padding-right: 5%;
+            padding-top: 0;
+            padding-bottom: 20px;
+        }
+    }
+    
+    .header-section {
+        @media (max-width: 767px) {
+            padding-bottom: 0;
+        }
+    }
+    
+    .header-row {
+         @media (max-width: 767px) {
+            padding-top: 10px;
+            width: 90%;
+        }
     }
     
     .header-section + .et_pb_section {
-        padding-top: 2%;
+        padding-top: 10px;
+    }
+    
+    /* first inside the white */
+    .et_pb_row_1 {
+        @media (max-width: 767px) {
+            padding-top: 15px;
+        }
+    }
+    
+    .intro-text {
+        font-size: 20px;
+        font-weight: 200;
+    }
+    
+    .meet-our-team-header-row {
+        padding-top: 0;
+        
+        @media (max-width: 980px) {
+            .et_pb_column {
+                &:first-child {
+                    margin-bottom: 0 !important;
+                }
+            }
+        }
     }
     
     .meet-our-team {
+        @media (max-width: 980px) {
+            .et_pb_text {
+                &:nth-child(1) {
+                    max-width: 250px;
+                }
+            }
+        }
+        
         .et_pb_text {
             &:nth-child(1) {
                 background-size: cover;
+                background-position: center;
             }
         }
         
@@ -24,10 +86,14 @@ body.coaches {
 
             span {
                 display: block;
-                background: $color-tertiary;
+                background: black;
                 width: 100%;
-                font-weight: bold;
                 padding: 5px 10px;
+                font-family: $font-tertiary;
+                font-size: 16px;
+                font-weight: 900;
+                text-transform: uppercase;
+                letter-spacing: 2px;
             }
         }
     }

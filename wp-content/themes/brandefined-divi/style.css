@@ -3449,15 +3449,22 @@ body, input, textarea, select {
   color: #ee1c25;
 }
 
-body:not(.home) h1 {
+.h1 {
   font-family: "GlacialIndifference", sans-serif;
-  font-size: 52px;
+  font-size: 60px;
+  line-height: 1.2em;
   font-weight: bold;
-  color: #4d4d4d;
+  color: black;
   text-transform: lowercase;
 }
 
-body:not(.home) h2 {
+@media (max-width: 767px) {
+  .h1 {
+    font-size: 36px;
+  }
+}
+
+.h2 {
   font-family: "Montserrat", sans-serif;
   color: black;
   font-size: 22px;
@@ -3719,14 +3726,36 @@ header#main-header .login-register a:hover {
   }
 }
 
+@media (max-width: 767px) {
+  .free-nutrition-report {
+    margin-bottom: -20px;
+  }
+}
+
 @media (max-width: 980px) {
   .free-nutrition-report {
     padding: 0;
+  }
+  .free-nutrition-report .et_pb_image {
+    max-width: 200px;
+    text-align: left !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .free-nutrition-report .gform_wrapper {
+    margin-bottom: -10px;
   }
 }
 
 .free-nutrition-report h2 {
   font-family: "GlacialIndifference", sans-serif;
+  line-height: 1.2em;
+}
+
+@media (max-width: 767px) {
+  .free-nutrition-report h2 {
+    font-size: 30px;
+  }
 }
 
 @media (max-width: 1100px) {
@@ -3748,7 +3777,8 @@ header#main-header .login-register a:hover {
 }
 
 .free-nutrition-report .get-your-free-nutrition-report label {
-  font-size: 16px !important;
+  font-size: 20px !important;
+  font-weight: 200px;
   cursor: pointer;
 }
 
@@ -3756,8 +3786,18 @@ header#main-header .login-register a:hover {
   display: none !important;
 }
 
+@media (max-width: 1100px) {
+  .free-nutrition-report .get-your-free-nutrition-report label {
+    font-size: 16px !important;
+  }
+}
+
 .free-nutrition-report .get-your-free-nutrition-report .ginput_container_checkbox {
   margin-top: 0 !important;
+}
+
+.free-nutrition-report .get-your-free-nutrition-report input[type=checkbox] {
+  font-size: 20px;
 }
 
 .free-nutrition-report .get-your-free-nutrition-report input[type=checkbox]:checked + label {
@@ -3790,7 +3830,7 @@ header#main-header .login-register a:hover {
   width: 100% !important;
   border: 2px solid black !important;
   color: #333;
-  padding: 7px 10px !important;
+  padding: 7px 12px !important;
 }
 
 .free-nutrition-report .get-your-free-nutrition-report .name-email-wrapper ::-webkit-input-placeholder {
@@ -3815,7 +3855,7 @@ header#main-header .login-register a:hover {
 
 .free-nutrition-report .get-your-free-nutrition-report small {
   display: block;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .free-nutrition-report .get-your-free-nutrition-report .button {
@@ -3887,9 +3927,10 @@ header#main-header .login-register a:hover {
 .sub-footer .forms-resources {
   font-family: "Montserrat", sans-serif;
   color: #4d4d4d;
-  font-size: 11px;
-  font-weight: bold;
+  font-size: 12px;
+  font-weight: 900;
   text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .sub-footer .forms-resources a {
@@ -3907,7 +3948,7 @@ header#main-header .login-register a:hover {
 }
 
 .sub-footer ul.menu > li:nth-child(n + 2) {
-  margin-top: 15px;
+  margin-top: 13px;
 }
 
 .sub-footer ul.menu > li > a {
@@ -3926,6 +3967,12 @@ header#main-header .login-register a:hover {
   list-style-type: none;
   padding: 0;
   margin-top: 15px;
+}
+
+@media (max-width: 767px) {
+  .sub-footer ul.menu > li ul.sub-menu {
+    margin-top: 0;
+  }
 }
 
 .sub-footer ul.menu > li ul.sub-menu li:nth-child(n + 2) {
@@ -3972,6 +4019,19 @@ header#main-header .login-register a:hover {
   color: #ee1c25;
 }
 
+body.home .et_pb_slider:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+  background: url("/wp-content/uploads/2016/12/pattern-diag-blk-34-perc-opac.png") repeat;
+  display: block;
+  pointer-events: none;
+  z-index: 10;
+}
+
 @media (max-width: 980px) {
   body.home .et_pb_slides .et_pb_slide {
     height: 200px;
@@ -3998,7 +4058,8 @@ header#main-header .login-register a:hover {
   }
   body.home .home-free-fitness-updates ul.gform_fields li:nth-child(1) h2 {
     font-family: "GlacialIndifference", sans-serif;
-    font-size: 58px;
+    font-size: 36px;
+    line-height: 1.2em;
     color: black;
   }
   body.home .home-free-fitness-updates ul.gform_fields li.gfield_contains_required {
@@ -4041,7 +4102,7 @@ header#main-header .login-register a:hover {
     display: none;
   }
   body.home .home-free-fitness-updates ul.gform_fields li p {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 200;
     margin-bottom: 20px;
   }
@@ -4065,6 +4126,7 @@ header#main-header .login-register a:hover {
     max-width: 540px;
     top: 100px;
     left: 10%;
+    z-index: 100;
   }
   body.home .home-free-fitness-updates .validation_error {
     display: none;
@@ -4151,7 +4213,7 @@ header#main-header .login-register a:hover {
 
 @media (max-width: 980px) {
   body.home .home-free-fitness-updates .gform_footer {
-    padding: 20px 0 25px 0;
+    padding: 20px 0 15px 0;
   }
   body.home .home-free-fitness-updates .gform_footer .button {
     border: none;
@@ -4283,6 +4345,11 @@ body.home .about-us .et_pb_column:nth-child(1) {
 
 body.home .about-us .et_pb_video {
   height: 100%;
+  background: #4077bc;
+}
+
+body.home .about-us .et_pb_video_overlay {
+  background: rgba(64, 119, 188, 0.9) !important;
 }
 
 body.home .about-us p {
@@ -4306,6 +4373,10 @@ body.home .about-us .arrow-button:after {
 
 body.home .about-us .arrow-button:hover {
   color: #e6e6e6;
+}
+
+body.home .news-section {
+  /* button row */
 }
 
 @media (max-width: 980px) {
@@ -4467,8 +4538,27 @@ body.home .news-section .et_pb_code ul li a .bottom p {
 }
 
 @media (max-width: 980px) {
+  body.home .news-section .et_pb_text_6 {
+    margin-top: 0 !important;
+  }
+}
+
+@media (max-width: 980px) {
+  body.home .contact-us-today {
+    /* main header */
+  }
   body.home .contact-us-today .et_pb_row {
     padding: 0;
+  }
+  body.home .contact-us-today .et_pb_text_7 {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  body.home .contact-us-today {
+    padding-top: 20px;
+    padding-bottom: 10px;
   }
 }
 
@@ -4496,27 +4586,23 @@ body.home .contact-us-today input:not(.button), body.home .contact-us-today text
   background: none;
   border: 2px solid white !important;
   color: white;
-  padding: 10px 15px !important;
+  padding: 7px 12px !important;
 }
 
 body.home .contact-us-today ::-webkit-input-placeholder {
   color: white;
-  font-style: italic;
 }
 
 body.home .contact-us-today ::-moz-placeholder {
   color: white;
-  font-style: italic;
 }
 
 body.home .contact-us-today :-ms-input-placeholder {
   color: white;
-  font-style: italic;
 }
 
 body.home .contact-us-today ::placeholder {
   color: white;
-  font-style: italic;
 }
 
 body.home .contact-us-today label {
@@ -4580,11 +4666,19 @@ body.home .contact-us-today .gform_footer .button {
   letter-spacing: 2px;
   background: none;
   width: auto;
+  line-height: inherit !important;
+  min-height: 0 !important;
 }
 
 body.home .contact-us-today .gform_footer .button:hover {
   background: white;
   color: #8cc540;
+}
+
+@media (max-width: 767px) {
+  body.home .contact-us-today .gform_footer {
+    padding-bottom: 0;
+  }
 }
 
 body.home .membership-options h2 {
@@ -4621,23 +4715,87 @@ body.home .membership-options .round-button:hover {
 }
 
 body.home .membership-options p {
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: 200;
 }
 
-body.coaches .et_pb_row:not(.header-row) {
+body.page-id-132 {
+  /* entire background section */
+  /* first inside the white */
+}
+
+@media (max-width: 767px) {
+  body.page-id-132 .et_pb_with_background {
+    padding-bottom: 20px;
+  }
+}
+
+body.page-id-132 .side-padding {
   background: white;
-  padding: 2%;
+  padding-left: 3%;
+  padding-right: 3%;
 }
 
-body.coaches .header-section + .et_pb_section {
-  padding-top: 2%;
+@media (max-width: 767px) {
+  body.page-id-132 .side-padding {
+    width: 90%;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 0;
+    padding-bottom: 20px;
+  }
 }
 
-body.coaches .meet-our-team .et_pb_text:nth-child(1) {
+@media (max-width: 767px) {
+  body.page-id-132 .header-section {
+    padding-bottom: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  body.page-id-132 .header-row {
+    padding-top: 10px;
+    width: 90%;
+  }
+}
+
+body.page-id-132 .header-section + .et_pb_section {
+  padding-top: 10px;
+}
+
+@media (max-width: 767px) {
+  body.page-id-132 .et_pb_row_1 {
+    padding-top: 15px;
+  }
+}
+
+body.page-id-132 .intro-text {
+  font-size: 20px;
+  font-weight: 200;
+}
+
+body.page-id-132 .meet-our-team-header-row {
+  padding-top: 0;
+}
+
+@media (max-width: 980px) {
+  body.page-id-132 .meet-our-team-header-row .et_pb_column:first-child {
+    margin-bottom: 0 !important;
+  }
+}
+
+@media (max-width: 980px) {
+  body.page-id-132 .meet-our-team .et_pb_text:nth-child(1) {
+    max-width: 250px;
+  }
+}
+
+body.page-id-132 .meet-our-team .et_pb_text:nth-child(1) {
   background-size: cover;
+  background-position: center;
 }
 
-body.coaches .meet-our-team h3 {
+body.page-id-132 .meet-our-team h3 {
   height: 250px;
   display: -ms-flexbox;
   display: flex;
@@ -4647,10 +4805,83 @@ body.coaches .meet-our-team h3 {
   color: white;
 }
 
-body.coaches .meet-our-team h3 span {
+body.page-id-132 .meet-our-team h3 span {
   display: block;
-  background: #4d4d4d;
+  background: black;
   width: 100%;
-  font-weight: bold;
   padding: 5px 10px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+@media (max-width: 767px) {
+  body.page-id-72 .header-row {
+    padding-top: 10px;
+    width: 90%;
+  }
+}
+
+@media (max-width: 767px) {
+  body.page-id-72 .side-padding-specialty {
+    padding-bottom: 5%;
+  }
+}
+
+@media (max-width: 980px) {
+  body.page-id-72 .side-padding-specialty {
+    padding-top: 0;
+  }
+}
+
+@media (min-width: 981px) {
+  body.page-id-72 .side-padding-specialty .et_pb_image {
+    padding-top: 10px;
+  }
+}
+
+body.page-id-72 .side-padding-specialty .et_pb_row {
+  background: white;
+  padding-left: 3%;
+  padding-right: 0;
+}
+
+body.page-id-72 .side-padding-specialty .et_pb_row .et_pb_column_single {
+  padding: 0;
+}
+
+@media (max-width: 980px) {
+  body.page-id-72 .side-padding-specialty .et_pb_row {
+    padding-left: 0;
+  }
+  body.page-id-72 .side-padding-specialty .et_pb_row .et_pb_specialty_column {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  body.page-id-72 .side-padding-specialty .et_pb_row .et_pb_specialty_column .et_pb_row_inner:last-child {
+    padding-bottom: 0;
+  }
+  body.page-id-72 .side-padding-specialty .et_pb_row .et_pb_row_inner_0 {
+    padding: 15px 0;
+  }
+}
+
+@media (max-width: 767px) {
+  body.page-id-72 .side-padding-specialty .et_pb_row {
+    width: 90%;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  body.page-id-72 .side-padding-specialty .et_pb_row .et_pb_specialty_column {
+    padding-bottom: 25px;
+    margin-bottom: 0;
+  }
+}
+
+body.page-id-72 .testimonial-row {
+  height: 100%;
 }

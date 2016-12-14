@@ -10,7 +10,7 @@
 
             // get only a few words
             $summary = strip_tags(get_the_content());
-            $letters = 80;
+            $letters = 95;
             if (strlen($summary) > $letters) {
                 $stringCut = substr($summary, 0, $letters);
                 $summary = substr($stringCut, 0, strrpos($stringCut, ' ')).'...';

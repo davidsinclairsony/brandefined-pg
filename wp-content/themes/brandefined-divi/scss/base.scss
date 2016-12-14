@@ -10,21 +10,24 @@ body, input, textarea, select {
   color: $color-primary;
 }
 
-body:not(.home) {
-  h1 {
-    font-family: $font-secondary;
-    font-size: 52px;
-    font-weight: bold;
-    color: $color-tertiary;
-    text-transform: lowercase;
-  }
-  
-  h2 {
-    font-family: $font-tertiary;
-    color: black;
-    font-size: 22px;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
+.h1 {
+ font-family: $font-secondary;
+ font-size: 60px;
+ line-height: 1.2em;
+ font-weight: bold;
+ color: black; //$color-tertiary;
+ text-transform: lowercase;
+ 
+ @media (max-width: 767px) {
+  font-size: 36px;
+ }
+}
+
+.h2 {
+ font-family: $font-tertiary;
+ color: black;
+ font-size: 22px;
+ font-weight: 900;
+ text-transform: uppercase;
+ letter-spacing: 2px;
 }
